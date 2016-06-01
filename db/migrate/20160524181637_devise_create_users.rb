@@ -5,10 +5,12 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.string :email,              null: false, default: ""
       t.string :encrypted_password, null: false, default: ""
       ##Custom
-      t.string :username
-      t.integer :s_num
-      t.integer :gender
-      t.string :p_num
+      t.string  :username                       #이름
+      t.integer :s_num                          #학번
+      t.integer :gender                         #성별
+      t.string  :p_num                          #전화번호
+      t.text    :profile_img,default:"profile_default.png"#프사
+      t.integer :level,default:1                #권한 전체 어드민 계정-스쿨 생성 가능 공지사항 가능
       ## Recoverable
       t.string   :reset_password_token
       t.datetime :reset_password_sent_at

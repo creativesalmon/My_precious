@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   root 'home#index'
-  get 'home/index'
-  get 'home/view'
+  match ":controller(/:action(/:id))", :via => [:get, :post]
      
   devise_for :users, controllers: {
   :registrations => "users/registrations",

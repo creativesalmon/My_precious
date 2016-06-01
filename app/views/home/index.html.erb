@@ -1,8 +1,12 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
-<p><%= current_user.s_num%></p>
-<p><%= current_user.username+'님 반갑습니다.'%></p>
-<a href="/users/sign_out">로그아웃</a>
-<%= image_tag @gender %>
+<%= render partial: 'up_navbar' %>
+<section id="content">
+    <h1>Home#index</h1>
+    <p>Find me in app/views/home/index.html.erb</p>
+    <p><%= current_user.s_num%></p>
+    <p><%= current_user.username+"님 안녕하세여"%></p>
+    <a href="/users/sign_out">로그아웃</a>
+    <%= image_tag @gender %>
+</section>
+
     
 

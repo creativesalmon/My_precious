@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    
+    <title>Pride Of Rions</title>
+    <!--<%= stylesheet_link_tag    'application', media: 'all' %>-->
+    <!--<%= javascript_include_tag 'application' %>-->
+    <%= csrf_meta_tags %>
+    <link rel="icon" href="/nom/img/cute_leo.png">
+    <!--################ 부트스트랩 CDN ###################-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <!--###################################################-->
+    
+    <!--################# 머티리얼 어드민 ASSETS ###################-->
+        <!-- Vendor CSS -->
+        <link href="/mtl/vendors/bower_components/mediaelement/build/mediaelementplayer.css" rel="stylesheet">
+        <link href="/mtl/vendors/bower_components/fullcalendar/dist/fullcalendar.min.css" rel="stylesheet">
+        <link href="/mtl/vendors/bower_components/animate.css/animate.min.css" rel="stylesheet">
+        <link href="/mtl/vendors/bower_components/bootstrap-sweetalert/lib/sweet-alert.css" rel="stylesheet">
+        <link href="/mtl/vendors/bower_components/material-design-iconic-font/dist/css/material-design-iconic-font.min.css" rel="stylesheet">
+        <link href="/mtl/vendors/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet">        
+            
+        <!-- CSS -->
+        <link href="/mtl/css/app.min.1.css" rel="stylesheet">
+        <link href="/mtl/css/app.min.2.css" rel="stylesheet">
+    <!--############################################################-->
+    
+    
+    <link rel="stylesheet" media="all" href="/home/home.css" />
+</head>
+<body>
+    
+    <!--<p class="notice"><%#= notice %></p>-->
+    <!--<p class="alert"><%#= alert %></p>-->
+    <%= yield %>
+      <%= render :partial => 'home/bottom_script' %>
+</body>
+</html>

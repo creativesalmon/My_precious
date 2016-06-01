@@ -10,7 +10,8 @@
   margin: auto;
 }
 .form {
-     
+  filter:alpha(opacity=50);
+  opacity: 0.8;
   position: relative;
   z-index: 1;
   background: #FFFFFF;
@@ -105,12 +106,16 @@ a {
   color: #EF3B3A;
 }
 body {
-  background: #76b852; /* fallback for old browsers */
-  background: url(2.jpg);
-  background: -webkit-linear-gradient(right, #76b852, #8DC26F);
-  background: -moz-linear-gradient(right, #76b852, #8DC26F);
-  background: -o-linear-gradient(right, #76b852, #8DC26F);
-  background: linear-gradient(to left, #76b852, #8DC26F);
+  // background: #76b852; /* fallback for old browsers */
+  background: url(/nom/img/lion_couple.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+   background-size: cover;
+  // background: -webkit-linear-gradient(right, #76b852, #8DC26F);
+  // background: -moz-linear-gradient(right, #76b852, #8DC26F);
+  // background: -o-linear-gradient(right, #76b852, #8DC26F);
+  // background: linear-gradient(to left, #76b852, #8DC26F);
   font-family: "Roboto", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;      
