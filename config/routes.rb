@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'aj/aj'
+
   root 'home#index'
   match ":controller(/:action(/:id))", :via => [:get, :post]
      
