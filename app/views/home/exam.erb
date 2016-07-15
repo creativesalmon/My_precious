@@ -1,0 +1,44 @@
+<!--글 작성 연습-->
+
+<% i = 1 %>
+<% Category.all.each do |ct| %>
+    <% if i%4 == 1 %>
+    <div class="col-md-12" style="padding:0">
+    <% end %>
+    <div class="col-md-3" style="margin-top: 10px; <% if i%4 == 1 %><%= "padding:0px 5px 0px 10px;" %><% elsif i%4 == 0 %><%= "padding:0px 0px 0px 5px;" %><% else %><%= "padding:0px 5px 0px 5px;" %><% end %>">
+        <div class="card" style="margin:0; background:#fff;">
+            <div class="card-header bgm-lightblue" style="padding: 10px 25px; background-color:rgba(3, 169, 244, 0.4) !important;">
+                <p style="font-size:18px; margin:0; font-weight:bold; text-align:center;"><%= ct.name %></p>
+            </div>
+            <div class="card-body card-padding">
+                <% k = 1 %>
+                <% ct.boards.each do |bd| %>
+                    <% if ct.boards.count == k || (ct.boards.count-1) == k || (ct.boards.count-2) == k%>
+                        <a href="/home/board/<%= bd.id %>" class="btn <%#= "btn-" + color.sample %> <%= "bgm-" + bg_color.sample %> btn-xs waves-effect" style="font-size:11.5px; margin: 4px 5px;"><%= bd.name %></a>
+                        <% if user_signed_in? %>
+                            <% if current_user.level == 10 %>
+                                <% if params[:admin] == "mod" %>
+                                <a href="/home/delete_board/<%= bd.id %>"><span style="font-size:11.5px; color:#000 !important">[삭제]</span></a>
+                                <% end %>
+                            <% end %>
+                        <% end %>
+                    <% else %>
+                        <a href="/home/board/<%= bd.id %>" class="btn <%#= "btn-" + color.sample %> <%= "bgm-" + bg_color.sample %> btn-xs waves-effect" style="font-size:11.5px; margin: 4px 5px;float: left;"><%= bd.name %></a>
+                        <% if user_signed_in? %>
+                            <% if current_user.level == 10 %>
+                                <% if params[:admin] == "mod" %>
+                                <a href="/home/delete_board/<%= bd.id %>"><span style="font-size:11.5px; color:#000 !important">[삭제]</span></a></br></br>
+                                <% end %>
+                            <% end %>
+                        <% end %>
+                    <% end %>
+                    <% k += 1 %>
+                <% end %>
+            </div>
+        </div>
+    </div>
+    <% if i%4 == 0 %>
+    </div>
+    <% end %>
+    <% i += 1 %>
+<% end %>

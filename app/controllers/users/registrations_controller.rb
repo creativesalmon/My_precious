@@ -2,12 +2,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
  before_action :configure_sign_up_params, only: [:create]
  before_action :configure_account_update_params, only: [:update]
    # If you have extra params to permit, append them to the sanitizer.
-  def configure_sign_up_params
+   def configure_sign_up_params
     devise_parameter_sanitizer.permit(:sign_up, keys: [:s_num])
     devise_parameter_sanitizer.permit(:sign_up, keys: [:p_num])
     devise_parameter_sanitizer.permit(:sign_up, keys: [:gender])
     devise_parameter_sanitizer.permit(:sign_up, keys: [:username])
     devise_parameter_sanitizer.permit(:sign_up, keys: [:level])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:img_poa])
   end
 
   # If you have extra params to permit, append them to the sanitizer.
@@ -17,6 +18,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     devise_parameter_sanitizer.permit(:account_update, keys: [:gender])
     devise_parameter_sanitizer.permit(:account_update, keys: [:username])
     devise_parameter_sanitizer.permit(:account_update, keys: [:level])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:img_poa])
   end
 
 

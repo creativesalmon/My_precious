@@ -1,5 +1,38 @@
-<%= render partial: 'up_navbar' %>
+  <%= render partial: 'up_navbar' %>
 <% @new=1 %>
 <% if @new==2 %>
  <img class="lv-img-sm" src="" alt="">
 <% end%>
+<div class="container">
+    <section id="content">
+       <center> <button type="button" class="btn btn-primary btn-lg cust">Large button</button></center>
+        <button type="button" href="#" class="btn btn-primary btn-lg" data-toggle="modal" data-target=".bs-example-modal-sm">팀 생성</button>
+        <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-sm">
+           <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">새로운 팀 생성</h4>
+              </div>
+              <div class="modal-body">
+                <form>
+                      <div class="form-group">
+                        <label for="recipient-name" class="control-label">팀 이름:</label>
+                        <input type="text" class="form-control" id="recipient-name">
+                      </div>
+                      <div class="form-group">
+                        <label for="message-text" class="control-label">팀 설명:</label>
+                        <textarea class="form-control" id="message-text"></textarea>
+                      </div>
+                </form>
+                 <%= render partial: 'add_pic' %>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+    </section>
+</div>
