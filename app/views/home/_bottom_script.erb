@@ -8,12 +8,23 @@
 <script src="/mtl/vendors/bower_components/bootstrap-sweetalert/lib/sweet-alert.min.js"></script>
 
 <script src="/mtl/vendors/bower_components/moment/min/moment.min.js"></script>
+
+<script src="/mtl/vendors/bower_components/bootstrap-select/dist/js/bootstrap-select.js"></script>
+<script src="/mtl/vendors/bower_components/nouislider/distribute/jquery.nouislider.all.min.js"></script>
+<script src="/mtl/vendors/bower_components/typeahead.js/dist/typeahead.bundle.min.js"></script>
+<script src="/mtl/vendors/fileinput/fileinput.min.js"></script>
+
 <script src="/mtl/vendors/bower_components/fullcalendar/dist/fullcalendar.min.js"></script>
 <script src="/mtl/vendors/bower_components/simpleWeather/jquery.simpleWeather.min.js"></script>
 <script src="/mtl/vendors/bower_components/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js"></script>
 <script src="/mtl/vendors/bower_components/autosize/dist/autosize.min.js"></script>
 <script src="/mtl/vendors/bower_components/mediaelement/build/mediaelement-and-player.js"></script>
+<script src="/mtl/vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+<script src="/mtl/vendors/bower_components/chosen/chosen.jquery.min.js"></script>
 
+<script src="/mtl/vendors/summernote/dist/summernote-updated.min.js"></script>
+<script src="/mtl/vendors/input-mask/input-mask.min.js"></script>
+<script src="/mtl/vendors/farbtastic/farbtastic.min.js"></script>
 <!-- Placeholder for IE9 -->
 <!--[if IE 9 ]>
     <script src="/mtl/vendors/bower_components/jquery-placeholder/jquery.placeholder.min.js"></script>
@@ -21,6 +32,20 @@
 
 <script src="/mtl/js/functions.js"></script>
 <script src="/mtl/js/demo.js"></script>
+
+<!--캘린더-->
+<script type="text/javascript"
+     src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js">
+    </script> 
+    <script type="text/javascript"
+     src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js">
+    </script>
+    <script type="text/javascript"
+     src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.min.js">
+    </script>
+    <script type="text/javascript"
+     src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.pt-BR.js">
+    </script>
 <script type="text/javascript">
 
 
@@ -73,4 +98,69 @@ function resetFormElement(e) {
     //DOM에서 제공하는 초기화 메서드 reset()을 호출
     e.unwrap(); //감싼 <form> 태그를 제거
 }
+
+<% Team.all.each do |t|%>
+            
+            $('#join-team<%=t.id%>').click(function(){
+                swal({   
+                    title: "팀 가입",   
+                    text: "<%=t.name%>팀에 가입하겟습니까?",   
+                    type: "info",   
+                    showCancelButton: true,   
+                    confirmButtonColor: "#DD6B55",   
+                    confirmButtonText: "예",   
+                    cancelButtonText: "아니오",   
+                    closeOnConfirm: false,   
+                    closeOnCancel: false 
+                }, function(isConfirm){   
+                    if (isConfirm) {     
+                        swal({
+                            title:"팀에 가입되었습니다!",
+                            text:"감사합니다 <%=t.name%>에 가입되셨습니다.",
+                            type: "success",
+                            confirmButtonColor: "#DD6B55",   
+                            confirmButtonText: "예",   
+                            closeOnConfirm: true   
+                        },function(isConfirm){
+                            if(isConfirm){
+                                location.replace('/home/join_team/<%= t.id %>');}});
+                    } else {     
+                        swal("취소하셨습니다.", "당신의 팀은 안전합니다 :)", "error");   
+                    } 
+                });
+            });
+        
+<% end%>
+
+        $('.delete-menu').click(function(){
+       
+             delete_id = this.id;
+            
+                swal({   
+                    title: "정말 팀을 삭제하시겠습니까?",   
+                    text: "예를 누른다면 되살릴 수 없습니다.!",   
+                    type: "warning",   
+                    showCancelButton: true,   
+                    confirmButtonColor: "#DD6B55",   
+                    confirmButtonText: "예",   
+                    cancelButtonText: "아니오",   
+                    closeOnConfirm: false,   
+                    closeOnCancel: false 
+                }, function(isConfirm){   
+                    if (isConfirm) {     
+                        swal({
+                            title:"팀이 삭제되었습니다!",
+                            text:"감사합니다 다른 팀을 이용해주세요.",
+                            type: "success",
+                            confirmButtonColor: "#DD6B55",   
+                            confirmButtonText: "예",   
+                            closeOnConfirm: true   
+                        },function(isConfirm){
+                            if(isConfirm){
+                                location.replace('/home/delete_team/'+delete_id);}});
+                    } else {     
+                        swal("취소하셨습니다.", "당신의 팀은 안전합니다 :)", "error");   
+                    } 
+                });
+            });
 </script>

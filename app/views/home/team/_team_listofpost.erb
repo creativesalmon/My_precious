@@ -1,0 +1,12 @@
+<% @every_post.each do |p| %>
+    <a href="/home/show_post?post_id=<%=p.id%>">
+    No. <%= p.id %> <br>
+    제목: <%= p.name %> <br>
+    작성자: <%= p.user_id %>
+    작성시간: <%= p.created_at %>
+    </a>
+    <hr>
+<% end %>
+<!--<h1> <a href= "/home/<%#=@team.id%>/view_of_write"> 게시판 글쓰러 가기</a></h1>-->
+<h1> <a href= "/home/view_of_write?team_id=<%=@team.id%>"> 게시판 글쓰러 가기</a></h1>
+

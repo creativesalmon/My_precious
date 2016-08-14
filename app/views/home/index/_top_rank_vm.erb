@@ -1,0 +1,23 @@
+<div class="listview" >
+    <div class="lv-header">
+        팀 가입자 순위
+    </div>
+    <div class="lv-body">
+        
+        <%@aa=UserTeam.select('team_id,count(id) as count').group(:team_id).order("count desc").limit(5)%>
+        <%@deno=@aa.first.count%>
+        <%@aa.all.each do |a|%>
+            <%@per=a.count.fdiv(@deno)*100%>
+            <div class="lv-item p-t-0">
+            <div class="lv-title m-b-5 f-12"><%= Team.find(a.team_id).name%></div>
+            <div class="progress">
+                <div class="progress-bar progress-bar-<%= cycle('danger','warning','success','info','')%>" role="progressbar" aria-valuenow="<%= a.count%>" aria-valuemin="0" aria-valuemax="100" data-toggle="tooltip" data-original-title="<%=a.count%>명" style="width: <%=@per%>%;">
+                    <span class="sr-only"><%= a.count%> Complete (success)</span>
+                </div>
+            </div>
+        </div>
+        <%end%>
+    </div>
+
+    <!--<a class="lv-footer" href="">View All</a>-->
+</div>

@@ -1,0 +1,18 @@
+    <div class="card profile-view" style="height:100%">
+        <div class="pv-header">
+            <!--<img src="img/profile-pics/profile-pic.jpg" class="pv-main" alt="">-->
+            <% if current_user.img_poa== true %>
+                <img class="pv-main" src="<%=Userpic.find_by(user_id: current_user.id ,main: true).profile_img%>" alt="">
+            <% else%>
+                <img class="pv-main" src="https://s3.ap-northeast-2.amazonaws.com/prideoflion/uploads/userpic/1468549736JMEFWBKD.png" alt="">
+            <% end%>
+        </div>
+        <div class="pv-body">
+            <h2><%= current_user.username %></h2>
+            <br>
+            <ul class="pv-contact">
+                <li><i class="zmdi zmdi-pin"></i><%= current_user.s_num %></li>
+                <li><i class="zmdi zmdi-phone"></i><%= current_user.p_num %></li>
+            </ul>
+        </div>
+    </div>

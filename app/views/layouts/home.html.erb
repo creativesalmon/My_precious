@@ -6,7 +6,7 @@
     <!--<%= stylesheet_link_tag    'application', media: 'all' %>-->
     <!--<%= javascript_include_tag 'application' %>-->
     <%= csrf_meta_tags %>
-    <link rel="icon" href="/nom/img/cute_leo.png">
+    <link rel="icon" <%= asset_path 'cute_leo.png'%>>
     <!--################ 부트스트랩 CDN ###################-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <!-- Optional theme -->
@@ -28,20 +28,34 @@
         <link href="/mtl/vendors/bower_components/bootstrap-sweetalert/lib/sweet-alert.css" rel="stylesheet">
         <link href="/mtl/vendors/bower_components/material-design-iconic-font/dist/css/material-design-iconic-font.min.css" rel="stylesheet">
         <link href="/mtl/vendors/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet">        
-            
+    
         <!-- CSS -->
         <link href="/mtl/css/app.min.1.css" rel="stylesheet">
         <link href="/mtl/css/app.min.2.css" rel="stylesheet">
     <!--############################################################-->
-    
-    
+        <!--custom-->
+        <link href="/mtl/vendors/bower_components/bootstrap-select/dist/css/bootstrap-select.css" rel="stylesheet">
+        <link href="/mtl/vendors/bower_components/nouislider/distribute/jquery.nouislider.min.css" rel="stylesheet">
+        <link href="/mtl/vendors/farbtastic/farbtastic.css" rel="stylesheet">
+        <link href="/mtl/vendors/bower_components/chosen/chosen.min.css" rel="stylesheet">
+        <link href="/mtl/vendors/summernote/dist/summernote.css" rel="stylesheet">
+        <link href="/mtl/vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+        <link href="/mtl/vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
+        <!--<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">-->
     <!--<link rel="stylesheet" media="all" href="/home/home.css" />-->
+    
+<!--머터리얼디자인     -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.indigo-pink.min.css">
+        <script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
+
 </head>
 <body>
     
     <!--<p class="notice"><%#= notice %></p>-->
     <!--<p class="alert"><%#= alert %></p>-->
     <%= yield %>
+ 
       <%= render :partial => 'home/bottom_script' %>
 </body>
 </html>

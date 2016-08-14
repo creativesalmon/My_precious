@@ -1,0 +1,85 @@
+<!--모달 생성 버튼-->
+<div class="row" style="margin-top:10px;">
+  <div class="col-md-5"></div>
+  <div class="col-md-2" >
+    <span type="button" class="glyphicon glyphicon-plus-sign" data-toggle="modal" data-target="#myModal2"aria-hidden="true" style="font-size:50px; line-height: 60px;margin-top:10px;margin-left:-11px; cursor: pointer;"></span>
+  </div>
+  <div class="col-md-5"></div>
+</div>
+
+
+
+<!--모달 내용 부분-->
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+  <form action="/home/team_schedule/<%=@team.id%>" method="get">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="exampleModalLabel">일정 생성하기</h4>
+      </div>
+      <div class="modal-body">
+        <form>
+          
+          <!--일정 이름 생성-->
+          <div class="form-group">
+            <label for="team-name" class="control-label">일정 이름:</label>
+            <input type="text" name="sche_name" class="form-control" id="sche_nam">
+          </div>
+          <!--일정 장소 생성-->
+          <div class="form-group">
+            <label for="intro_text" class="control-label">일정 장소:</label>
+            <input type="text" name="sche_posi" class="form-control" id="sche_posi">
+          </div>
+           <!--일정 날짜 생성-->
+          <div class="form-group">
+            <label for="team-name" class="control-label">일정 날짜:</label>
+            <input type="date" name="sche_date" id="myDate">
+            <!--<div class="input-group form-group">-->
+            <!--    <span class="input-group-addon"><i class="zmdi zmdi-time"></i></span>-->
+            <!--        <div class="dtp-container fg-line">-->
+            <!--        <input type='text' class="form-control time-picker" placeholder="Click here...">-->
+            <!--    </div>-->
+            <!--</div>-->
+            <input type="time" name="sche_time" >
+          </div>
+          
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+        <button type="submit" class="btn btn-primary">생성</button>
+      </div>
+    </div>
+  </form>
+</div>
+</div>
+
+
+<!--일정 보여주는 부분-->
+<% t = @team.id %>
+<% Schedule.where(team_id: t).order("date desc").each do |s| %>
+
+<div class="row" style="margin-top:10px;">
+  <div class="col-md-5">
+     <p style="font-size:18px; margin-top:10px; font-weight:bold; text-align:right"><%= s.date%></p>
+  </div>
+  <div class="col-md-2" >
+    <i class="material-icons md-50" style="margin-left:-11px">panorama_fish_eye</i>
+  </div>
+  <div class="col-md-5">
+    <p style="font-size:18px; margin-top:10px; font-weight:bold; text-align:left"><%= s.name%></p>
+  </div>
+</div>
+
+<%  end%>
+
+<style>
+    .material-icons.md-50 { 
+      font-size: 50px;
+    }
+    
+    
+ 
+        
+</style>

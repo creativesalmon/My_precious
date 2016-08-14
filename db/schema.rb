@@ -11,11 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160715020249) do
+ActiveRecord::Schema.define(version: 20160807101302) do
+
+  create_table "attendances", force: :cascade do |t|
+    t.integer  "schedule_id"
+    t.integer  "user_id"
+    t.integer  "status"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
 
   create_table "notice_posts", force: :cascade do |t|
     t.text     "name"
     t.text     "content"
+    t.integer  "team_id"
     t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -33,6 +42,7 @@ ActiveRecord::Schema.define(version: 20160715020249) do
     t.text     "content"
     t.integer  "user_id"
     t.integer  "post_id"
+    t.integer  "team_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -41,11 +51,17 @@ ActiveRecord::Schema.define(version: 20160715020249) do
     t.text     "name"
     t.text     "content"
     t.integer  "user_id"
+    t.integer  "team_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "schedules", force: :cascade do |t|
+    t.string   "name"
+    t.string   "position"
+    t.text     "date"
+    t.text     "time"
+    t.integer  "team_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

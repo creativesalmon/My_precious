@@ -1,0 +1,17 @@
+
+
+
+<ul class="main-menu">
+            <li class="active">
+                <a href="index.html"><i class="zmdi zmdi-home"></i>홈</a>
+            </li>
+            <li class="sub-menu">
+                <a href=""><i class="zmdi zmdi-view-compact"></i>내가 가입한 팀</a>
+                <ul>
+                <% @teams=UserTeam.where(user_id:current_user.id) %>
+                    <% @teams.each do |t| %>
+                    <li onclick="location.href='/home/team_page/<%=Team.find(t.team_id).id%>';"><p style="font-size:20px; margin:5px; font-weight:bold; text-align:center;margin:5px 0px  0px  0px;"><%=Team.find(t.team_id).name%></p></li>
+                    <% end %>
+                </ul>
+            </li>
+</ul>

@@ -1,0 +1,63 @@
+<%= render partial: 'up_navbar' %>
+
+
+
+<div style="margin-top:-20px; padding:0;"/>
+    <div class="container">
+         <div class="row" style="margin-bottom: 10px">
+            <div class="progress" style="height: 30px">
+              <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%;">
+                40%<span class="sr-only">40% Complete (success)</span>
+              </div>
+            </div>
+          </div>
+
+        <div class="row" style="height:500px;">
+          <div class="col-md-9">
+          <div class="row">
+            <div class="card col-md-4" style="padding:0; margin:0">
+                <div class="team_info">
+                    <% a = @team %>
+                    <!--각 팀의 아이디 넣기-->
+                    <p style="font-size:18px; margin:0; font-weight:bold; text-align:center;">팀명 : <%= a.name %></p>
+                    <p style="font-size:18px; margin:0; font-weight:bold; text-align:center;">팀설명 : <%= a.intro_text %></p>
+                    <p style="font-size:18px; margin:0; font-weight:bold; text-align:center;">소속 : <%= a.school.name %></p>
+                    <p style="font-size:18px; margin:0; font-weight:bold; text-align:center;">소속원:</p>
+                    <% UserTeam.where(team_id: @team.id).all.each do |p| %>
+                    <p style="font-size:18px; margin:0; font-weight:bold; text-align:center; <% if p.power == 3 %> color:red; <% end %>"><%= User.find(p.user_id).username%></p>
+                    <%end%>
+                </div>
+            </div>
+            
+            
+                
+            <div class="card col-md-8" style="height:50%;padding: 0;margin: 0; background:none; border:none;">
+          		<%= render partial: 'home/team/team_listofpost'%>
+          	</div>
+          </div>
+          <div class="row"  style="margin-top: 20px;">
+            <div class="card col-md-4">
+              <%= render partial: 'home/team/team_arco'%> <!--- 이거 아코디언임 -->
+            </div>
+            <div class="card col-md-8">
+              
+            </div>
+          </div>
+          </div>
+        		<!--3번째-->
+        	<div class="card rating-list col-md-3" style="margin: 0;">
+              <%= render partial: 'home/team/team_schedule'%>
+          </div>
+            
+             
+            
+        </div>
+        <!--출석부-->
+        
+    </div>
+    
+  
+</div>
+
+
+    

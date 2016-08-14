@@ -1,0 +1,15 @@
+<% a = Team.find(1) %>
+<p style="font-size:18px; margin:0; font-weight:bold; text-align:center;">팀명 : <%= a.name %></p>
+<p style="font-size:18px; margin:0; font-weight:bold; text-align:center;">팀설명 : <%= a.intro_text %></p>
+<p style="font-size:18px; margin:0; font-weight:bold; text-align:center;">소속 : <%= a.school.name %></p>
+<ul class="main-menu">
+    <li class="sub-menu">
+        <a href=""><i class="zmdi zmdi-view-compact"></i> Headers</a>
+
+        <ul>
+            <li><a href="textual-menu.html">Textual menu</a></li>
+            <li><a href="image-logo.html">Image logo</a></li>
+            <li><a href="top-mainmenu.html">Mainmenu on top</a></li>
+        </ul>
+    </li>
+</ul>

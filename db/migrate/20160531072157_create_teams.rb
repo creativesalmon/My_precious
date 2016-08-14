@@ -5,7 +5,8 @@ class CreateTeams < ActiveRecord::Migration
       t.string :name
       t.text   :intro_text
       t.text   :team_img, default:"team_default.jpg"
-      t.integer:school_id
+      t.integer   :school_id
+      
 
       t.timestamps null: false
     end

@@ -1,0 +1,138 @@
+<!--글 작성 연습-->
+
+<% i = 1 %>
+<% a = 1 %>
+
+<% if i%4 == 1 %>
+  <div class="col-md-12" style="padding:0">
+<% end %>
+<!--팀 생성 버튼-->
+<% if a == 1 %>
+    <div class="col-md-3" style="margin-top: 10px; <% if i%4 == 1 %><%= "padding:0px 5px 0px 10px;" %><% elsif i%4 == 0 %><%= "padding:0px 0px 0px 5px;" %><% else %><%= "padding:0px 5px 0px 5px;" %><% end %>">
+      <div class="card" style="margin:0; background:#fff;border:1px solid gray">
+          <!-- Button trigger modal -->
+          <!--<button type="button" class="card-header bgm-lightblue"  style="padding: 10px 25px; background-color:rgba(3, 169, 244, 0.4) !important;" data-toggle="modal" data-target="#myModal2" >-->
+          <!--  팀 생성-->
+          <!--</button>-->
+          <div  class=" bgm-gray" style="height:235px; text-align: center;" data-toggle="modal" data-target="#myModal2"  >
+            
+           <span class="glyphicon glyphicon-plus-sign" aria-hidden="true" style = " font-size:100px;  color: white;line-height: 235px;"></span>
+            
+          </div>
+          <!--모달-->
+          <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <form action="/home/add_team" method="post">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="exampleModalLabel">팀 생성하기</h4>
+                  </div>
+                  <div class="modal-body">
+                    <form>
+                      <!--팀 속성 생성-->
+                      <div class="form-group">
+                        <label for="recipient-name" class="control-label">팀 소속:</label>
+                        <select name="school">
+                          <% School.all.each do |s| %>
+                            <option name="s_id" value="<%=s.id%>"><%=s.name%></option>
+                          <% end%>
+                        </select>
+                      </div>
+                      <!--팀 이름 생성-->
+                      <div class="form-group">
+                        <label for="team-name" class="control-label">팀 이름:</label>
+                        <input type="text" name="team_name" class="form-control" id="team_name">
+                      </div>
+                      <!--팀 내용 생성-->
+                      <div class="form-group">
+                        <label for="intro_text" class="control-label">팀 내용:</label>
+                        <textarea name="intro_text" class="form-control" id="intro_text"></textarea>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+                    <button type="submit" class="btn btn-primary">생성</button>
+                  </div>
+                </div> 
+              </form>
+            </div>
+          </div>
+      </div>
+  </div>
+
+  <% a += 1 %>
+  <% i += 1 %>
+<% end %>
+<% Team.all.each do |t| %>
+  <div class="col-md-3" style="  margin-top: 10px;<% if i%4 == 1 %><%= " padding:0px 5px 0px 10px;" %><% elsif i%4 == 0 %><%= "padding:0px 0px 0px 5px;" %><% else %><%= "padding:0px 5px 0px 5px;" %><% end %>">
+
+      <div class="card" style="border:1px solid gray" >
+      <div class="card-header bgm-gray"style="padding: 10px; height:50px" >
+          <p style="font-size:18px; margin:0; text-align:left; color:white;"><%= t.name %> <small><%= t.school.name %></small></p>
+          <ul class="actions">
+              <li class="dropdown">
+                  <a href="" data-toggle="dropdown" aria-expanded="false">
+                      <i class="zmdi zmdi-more-vert"></i>
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-right">
+                      <li>
+                          <a href="">Refresh</a>
+                      </li>
+                      <li>
+                          <a href="">팀 세팅</a>
+                      </li>
+                      <li>
+                         <% powerUser=UserTeam.where(team_id: t.id ,power: 3)%>
+                          <% powerUser.each do |p|%>
+                            <%if current_user.id==p.user_id%>
+                              <a id="sa-params<%= t.id %>">팀 삭제</a>
+                            <% end %>
+                          <%end%>
+                      </li>
+                  </ul>
+              </li>
+          </ul>
+      </div>
+      <% if UserTeam.exists?(team_id: t.id ,user_id: current_user.id)%>
+      <div class="card-body card-padding " style="padding: 20px ;height:150px"  onclick="location.href='https://lion-attendance-master-jomno.c9users.io/home/team_page/<%=t.id%>';">
+      <%else%>
+      <div class="card-body card-padding " style="padding: 20px ;height:150px" data-toggle="modal" data-target="#jointeam<%=t.id%>" data-backdrop="false">
+      <%end%>
+       <!--팀 가입 모달-->
+      <div class="modal fade" id="jointeam<%=t.id%>" tabindex="-1" role="dialog" aria-labelledby="jointeam<%=t.id%>" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="jointeam<%=t.id%>">팀 가입하기</h4>
+                  </div>
+                  <form action="/home/join_team/<%=t.id%>" method="post">
+                  <div class="modal-body">
+                    <p><%=t.name%>팀에 가입하시겠습니까?</p>
+                    <input type='hidden' name='team_id' value='<%=t.id%>'/>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+                    <button type="submit" class="btn btn-primary">가입</button>
+                  </div>
+                  </form>
+                </div>
+            </div>
+          </div>
+          <!--팀가입 모달끝-->
+      <%= t.intro_text %><br>
+             
+      </div>
+      <div class="card-head " style="text-align: left; height:35px; border-top: 1px solid gray; padding-left:20px;">
+                <span class="glyphicon glyphicon-king" aria-hidden="true"></span>
+                <span style = "font-size:13px; line-height: 35px; padding-right:55px;"><%= User.find(UserTeam.find_by(team_id: t.id, power: 3).user_id).username%></span>
+                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                <span style = "font-size:13px; line-height: 35px;"><%=UserTeam.where(team_id: t.id).count %>명</span>
+      </div>
+    </div>
+  </div>
+  
+  <% i += 1 %>
+<% end%>
