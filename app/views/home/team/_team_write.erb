@@ -1,0 +1,15 @@
+<div class="col-md-9">
+
+ <form action="/home/write" method="POST">
+     <div style="text-align:center">
+    <!--<label for="exampleInputEmail1" >제목</label>-->
+    <div class="wcc-inner  z-depth(1)" style="border: 1px solid #a9a9a9; margin-bottom:20px"><textarea class="wcci-text auto-size"name="title"  id="title" placeholder="제목" data-autosize-on="true" style="overflow: hidden; word-wrap: break-word; height: 24px;"></textarea></div>
+    </div>
+   <!--<label for="exampleInputEmail1">내용</label>-->
+   <input type="hidden" name="team_id" value="<%=@team.id%>">
+   <input type="hidden" name="tag" value="공지사항">
+    <textarea name="content" class="html-editor" id="content"> </textarea>
+  <button type="submit" class="btn btn-default">올리기</button>
+ </form>
+
+</div>

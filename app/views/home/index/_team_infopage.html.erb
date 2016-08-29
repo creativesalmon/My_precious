@@ -1,17 +1,38 @@
 
 
-
-<ul class="main-menu">
-            <li class="active">
-                <a href="index.html"><i class="zmdi zmdi-home"></i>홈</a>
-            </li>
-            <li class="sub-menu">
-                <a href=""><i class="zmdi zmdi-view-compact"></i>내가 가입한 팀</a>
-                <ul>
-                <% @teams=UserTeam.where(user_id:current_user.id) %>
-                    <% @teams.each do |t| %>
-                    <li onclick="location.href='/home/team_page/<%=Team.find(t.team_id).id%>';"><p style="font-size:20px; margin:5px; font-weight:bold; text-align:center;margin:5px 0px  0px  0px;"><%=Team.find(t.team_id).name%></p></li>
-                    <% end %>
-                </ul>
-            </li>
-</ul>
+<div class="card">
+    <ul class="main-menu  z-depth(1)" style="background-coler:white;">
+        <li class="sub-menu" style="background-coler:white;">
+            <a href="" ><i class="zmdi zmdi-view-compact"></i>내가 가입한 팀</a>
+            <ul class="list-group">
+                 <%@teams=UserTeam.where(user_id:current_user.id)%>
+                <% @teams.each do |t| %>
+                    <% @nc=0%>
+                    <% @npc=0%>
+                    <% @nsc=0%>
+                    <% t.team.posts.each do |tp| %>
+                        <% if tp.updated_at > t.updated_at%>
+                            <% @npc+=1%>
+                        <% end%>
+                    <%end%>
+                    <% t.team.schedules.each do |ts| %>
+                        <% if ts.updated_at > t.updated_at%>
+                            <% @nsc+=1%>
+                        <% end%>
+                    <%end%>
+                    <%@nc=@npc.to_i+@nsc.to_i%>
+                <a href="/home/team_page_vm/<%=Team.find(t.team_id).id%>" class="list-group-item"><span class="badge" data-toggle="tooltip" data-placement="top" data-original-title="　새 글:<%=@npc%>개 　새 일정: <%=@nsc%>개"><%=@nc%></span> <%=Team.find(t.team_id).name%></a>
+                <% end %>
+            </ul>
+        </li>
+        <li class="sub-menu">
+            <a href="" ><i class="zmdi zmdi-home"></i>추천사이트</a>
+             <ul class="list-group">
+                 <a href="http://www.likelion.net/" class="list-group-item">멋쟁이 사자처럼</a>
+                 <a href="http://jake895.dothome.co.kr/clean/" class="list-group-item">동국대 대관사이트</a>
+                 <!--<a href="http://www.likelion.net/" class="list-group-item">멋쟁이 사자처럼</a>-->
+             </ul>
+        </li>
+        
+    </ul>
+</div>

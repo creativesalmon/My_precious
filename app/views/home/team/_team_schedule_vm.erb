@@ -1,0 +1,71 @@
+<% t = @team.id %>
+<!--일정 보여주는 부분-->
+<% if Schedule.where(team_id: t).exists?%>
+
+<div class="card-header">
+    <h2>일정 타임 라인<small><%=@team.name%></small></h2>
+</div>
+<div class="card-body card-padding">   
+    <% Schedule.where(team_id: t).order("date asc").each do |s| %>
+    <div class="p-timeline">
+        <p style="margin-top:2px"><%= s.name%></p>
+        <div class="pt-line c-gray text-right">
+            <span class="d-block"></span>
+            <p style="margin-top:2px"><%= s.date%></p>
+        </div>  
+        <div class="pt-body">
+            
+        </div>
+    </div>
+    <%end%>
+</div>                 
+
+
+<%else%>
+<div class="card-header">
+    <h2>일정 타임 라인<small>이것은 팀플 매니저 일정 타임라인 예시입니다.</small></h2>
+</div>
+<div class="card-body card-padding">   
+<div class="p-timeline">
+    팀 결성
+    <div class="pt-line c-gray text-right">
+        <span class="d-block"></span>
+        2016-05-05
+    </div>  
+    <div class="pt-body">
+        
+    </div>
+</div>
+<div class="p-timeline">
+    첫 회식날
+    <div class="pt-line c-gray text-right">
+        <span class="d-block"></span>
+        2016-06-27
+    </div>  
+    <div class="pt-body">
+        
+    </div>
+</div>
+<div class="p-timeline">
+    자체 해커톤날
+    <div class="pt-line c-gray text-right">
+        <span class="d-block"></span>
+        2016-08-14
+    </div>  
+    <div class="pt-body">
+        
+    </div>
+</div>
+<div class="p-timeline">
+    멋사 해커톤날
+    <div class="pt-line c-gray text-right">
+        <span class="d-block"></span>
+        2016-08-29
+    </div>  
+    <div class="pt-body">
+        
+    </div>
+</div>
+</div> 
+<%end%>
+

@@ -1,3 +1,4 @@
+
 <% if user_signed_in? %>
   <!--<a href= "/users/sign_out">로그아웃</a>-->
   <%= link_to "로그아웃", destroy_user_session_path, :method => :delete %>
@@ -13,7 +14,8 @@
    </div>
    <label for="exampleInputEmail1">내용</label>
    <input type="hidden" name="team_id" value="<%=@team.id%>">
-   <textarea name="content" class="form-control" rows="5" id="content"> </textarea>
+   <input type="hidden" name="tag" value="공지사항">
+   <textarea name="content" class="html-editor" rows="30" id="content"> </textarea>
   <button type="submit" class="btn btn-default">올리기</button>
  </form>
 </div>

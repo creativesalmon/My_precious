@@ -37,3 +37,23 @@ School.create([
     { name: 'KAIST' },
     { name: 'UNIST' },
 ])
+Borrow.create([
+    { content: '스터디',weight: '1' },
+    { content: '사전 모임',weight: '2' },
+    { content: '오리엔테이션',weight: '2' },
+    { content: '모의 시험',weight: '2' },
+    { content: '팀별 토의',weight: '2' },
+    { content: '인사말',weight: '2' },
+    { content: '교재 스터디',weight: '3' },
+    { content: '아이디어 회의하기',weight: '3' },
+    { content: '팀별 기획회의하기',weight: '3' },
+    { content: '신문 스터디',weight: '3' },
+    { content: '자료조사 ',weight: '3' },
+     { content: '자료 검색',weight: '3' },
+    { content: '책 스터디',weight: '3' },
+    { content: '기획 정리 후 발표',weight: '4' },
+    { content: '팀별 스터디 소감 발표',weight: '4' },
+    { content: '팀 별 아이디어 발표',weight: '4' },
+     { content: '폐회사',weight: '4' }
+    
+])

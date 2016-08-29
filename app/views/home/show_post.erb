@@ -1,7 +1,159 @@
 
+<div style="margin-top:-20px; padding:0;"/>
+    <div class="container ctn">
+         <div class="row" style="margin-bottom: 10px;margin-top: 30px;">
+            <% t = Team.find(@team.id)%>
+            
+            <% if t.deadline != nil%>
+              <% td = DateTime.now.strftime('%s').to_f %>
+              <% cd = t.created_at.strftime('%s').to_f %>
+              <% ed = t.deadline.to_datetime.strftime('%s').to_f %>
+              <% res = ((td-cd)/(ed-cd)).round(2)*100%>
+              <% res = ((td-cd)/(cd)).round(2)*100%>
+            <div class="progress" style="height: 30px">
+              <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="<%=res %>" aria-valuemin="0" aria-valuemax="100" style="min-width: 2em;width: <%=res %>%;">
+                <%=res.round %>%
+              </div>
+            </div>
+             <% end %>
+          </div>
 
- No. <%= @one_post.id %> <br>
-    제목: <%= @one_post.name %> <br>
-    내용: <%= @one_post.content%>
-    작성자: <%= @onepost.user_id %>
-    작성시간: <%= @onepost.created_at%>
+        <div class="row" >
+            <div class="col-md-3" style="right: 5px;">
+                <div class="row">
+                    <div class="card">
+                        <%= render partial: 'home/team/team_info_vm'%>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class=" card">
+                        <%= render partial: 'home/team/team_menu'%>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="card">
+                    <div class="card-header">
+                        
+                        <div class="media">
+                            <a href="" class="pull-left">
+                                <% if @one_post.user.img_poa== true %> <!-- 이미지가 있을 경우 즉 프사를 올렸을경우 -->
+                                    <img class="lv-img-sm" src="<%=Userpic.find_by(user_id:  @one_post.user.id ,main: true).profile_img%>" alt="">
+                                <% else%>
+                                    <img class="lv-img-sm" src="https://s3.ap-northeast-2.amazonaws.com/prideoflion/use/profile_default.png" alt="">
+                                <% end%>
+                            </a>
+                            <div class="pull-right p-0">
+                                <ul class="actions">
+                                    <li class="dropdown action-show">
+                                        <a href="" data-toggle="dropdown" aria-expanded="false">
+                                            <i class="zmdi zmdi-more-vert"></i>
+                                        </a>
+                                        <ul class="dropdown-menu dropdown-menu-right">
+                                            <li>
+                                                <a href="/home/update_view/<%=@one_post.id%>">수정</a>
+                                            </li>
+                                            <li>
+                                                <% if current_user.id == @one_post.user_id %>
+                                                 <a href="/home/destroy/<%=@one_post.id%>">삭제</a>
+                                                <%end%>
+                                                
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <div class="media-body m-t-5">
+                                <h2><%= User.find(@one_post.user_id).username %> <small><%= time_ago_in_words(@one_post.created_at) %></small></h2>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-body card-padding">
+                        <p><%= @one_post.content.html_safe%></p>
+                        <ul class="wall-attrs clearfix list-inline list-unstyled">
+                            <li class="wa-stats">
+                                <span><i class="zmdi zmdi-comments"></i> <%=@one_post.post_replies.count%></span>
+                                <span class="active waves-effect thumb_up" id="<%=@one_post.id%>" ><i class="zmdi zmdi-favorite"></i><%=@one_post.favorites.count%></span>
+                            </li>
+                            
+                            <li class="wa-users">
+                                <%if @one_post.favorites.exists?%>
+                                    <% @one_post.favorites.all.each do |f|%>
+                                        <% if f.user.img_poa== true %>
+                                            <a href=""><img src="<%= Userpic.find_by(user_id: f.user_id ,main: true).profile_img %>" alt="" data-toggle="tooltip" data-original-title="<%=f.user.username%>"></a>
+                                        <% else%>
+                                            <a href=""><img src="https://s3.ap-northeast-2.amazonaws.com/prideoflion/use/profile_default.png" alt="" data-toggle="tooltip" data-original-title="<%=f.user.username%>"></a>
+                                        <% end%>
+                                    <% end%>
+                                <% end%>
+                            </li>
+                        </ul>    
+                    </div>
+                    
+                    <div class="wall-comment-list">
+                        
+                        <!-- Comment Listing -->
+                        <div class="wcl-list">
+                            <% PostReply.where(post_id: @one_post.id).each do |p| %> 
+                                    <div class="media">
+                                        <!--<a href="" class="pull-left">-->
+                                        <!--    <img src="/mtl/img/profile-pics/5.jpg" alt="" class="lv-img-sm">-->
+                                        <!--</a>-->
+                                        <a href="" class="pull-left">
+                                            <% if p.user.img_poa== true %> <!-- 이미지가 있을 경우 즉 프사를 올렸을경우 -->
+                                                <img class="lv-img-sm" src="<%=Userpic.find_by(user_id: p.user.id ,main: true).profile_img%>" alt="">
+                                            <% else%>
+                                                <img class="lv-img-sm" src="https://s3.ap-northeast-2.amazonaws.com/prideoflion/use/profile_default.png" alt="">
+                                            <% end%>
+                                        </a>
+                                        
+                                        <div class="pull-right p-0">
+                                            <ul class="actions">
+                                                <li class="dropdown action-show">
+                                                    <a href="" data-toggle="dropdown" aria-expanded="false">
+                                                        <i class="zmdi zmdi-more-vert"></i>
+                                                    </a>
+                                                    <ul class="dropdown-menu dropdown-menu-right">
+                                                        <li>
+                                                            <a href= "/update_view/<%=@one_post.id%>"> 수정 </a>
+                                                        </li>
+                                                        <li>
+                                                            <% if current_user.id == @one_post.user_id %>
+                                                              <a href="/destroy_rp/<%=p.id%>">Delete</a>
+                                                            <%end%>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        
+                                        <div class="media-body">
+                                            <a href="" class="a-title"><%= User.find(p.user_id).username %></a> <small class="c-gray m-l-10"><%=time_ago_in_words(p.created_at) %></small>
+                                            <p class="m-t-5 m-b-0"><%= p.content %></p>
+                                        </div>
+                                    </div>
+                            <% end %>
+                        </div>
+                        
+                        <!-- Comment form -->
+                        <div class="wcl-form">
+                                <form action="/home/reply_write" method="POST">
+                                <div class="wcc-inner">
+                                   <input type="hidden" value="<%=@one_post.id%>" name= id_of_post>
+                                    <textarea name="content" id="content_<%=@one_post.id%>" class="wcci-text auto-size" placeholder="Write Something..." data-autosize-on="true" style="overflow: hidden; word-wrap: break-word; height: 40px;"></textarea>
+                                </div>
+                                <div class="m-t-15"><button value="<%=@one_post.id%>" type="submit" class="btn btn-sm btn-primary">Post</button></div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-default btn-icon-text waves-effect" onclick="location.href='/home/team_page_vm_post?id=<%=@team.id%>';"><i class="zmdi zmdi-arrow-back"></i> 목록으로 복귀하기</button>
+            </div>
+        </div>
+    </div>
+    
+  
+</div>
+

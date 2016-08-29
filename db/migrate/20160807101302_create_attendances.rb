@@ -4,7 +4,7 @@ class CreateAttendances < ActiveRecord::Migration
 
       t.integer :schedule_id
       t.integer :user_id
-      t.integer :status  # 0: 불참석 1: 참석 2: (default 값)
+      t.integer :status  # 0: 불참석 1: 참석 2: 지각 3:(default 값)
       
       t.timestamps null: false
     end

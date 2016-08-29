@@ -2511,7 +2511,7 @@
       },
 
       // language
-      lang: 'en-US',                // language 'en-US', 'ko-KR', ...
+      lang: 'ko_KR',                // language 'en-US', 'ko-KR', ...
       direction: null,              // text direction, ex) 'rtl'
 
       // toolbar

@@ -1,0 +1,11 @@
+<div class="team_info">
+    <% a = @team %>
+    <!--각 팀의 아이디 넣기-->
+    <p style="font-size:18px; margin:0; font-weight:bold; text-align:center;">팀명 : <%= a.name %></p>
+    <p style="font-size:18px; margin:0; font-weight:bold; text-align:center;">팀설명 : <%= a.intro_text %></p>
+    <p style="font-size:18px; margin:0; font-weight:bold; text-align:center;">소속 : <%= a.school.name %></p>
+    <p style="font-size:18px; margin:0; font-weight:bold; text-align:center;">소속원:</p>
+    <% UserTeam.where(team_id: @team.id).all.each do |p| %>
+        <p style="font-size:18px; margin:0; font-weight:bold; text-align:center; <% if p.power == 3 %> color:red; <% end %>"><%= User.find(p.user_id).username%></p>
+    <%end%>
+</div>

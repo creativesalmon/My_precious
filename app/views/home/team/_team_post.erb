@@ -1,0 +1,40 @@
+<div class="col-md-9">
+<div class="card">
+    <div class="card-header z-depth(1)">
+        <h2><%=@team.name%> 공지사항 게시판</h2>
+    </div>
+        <table id="data-table-selection" class="table table-hover table-vmiddle table-condensed">
+            <thead>
+                    <tr>
+                        <th style="textcolor:black;" data-column-id="id" data-type="numeric">#</th>
+                        <th data-column-id="name">제목</th>
+                        <th data-column-id="username">작성자</th>
+                        <th data-column-id="time" data-order="desc">작성시간</th>
+                    </tr>
+            </thead>
+                <tbody>
+                    <% @every_post.each do |p| %>
+                    
+                    <tr onclick="location.href='/home/show_post?post_id=<%=p.id%>';">
+                        <td><%= p.id %></td>
+                        <td><%= p.name %> </td>
+                        <td><%= User.find(p.user_id).username %></td>
+                        <td><%=time_ago_in_words(p.created_at) %></td>
+                    </tr>
+                    <% end %>
+                </tbody>
+            </table>
+        <div class="row" style="padding-left: 25px;padding-right:25px; ">
+            <div class="col-sm-6">
+                <%= will_paginate @every_post, renderer: BootstrapPagination::Rails,previous_label: '<i class="zmdi zmdi-chevron-left"></i>',next_label: '<i class="zmdi zmdi-chevron-right"></i>' %>
+            </div>
+            <div class="col-sm-6" style="test-align: center;padding:25px;">
+                <a class="btn btn-primary btn-sm waves-effect" href= "/home/view_of_write_vm?team_id=<%=@team.id%>" style="float: right;"> 게시판 글쓰러 가기</a>
+            </div>
+        </div>
+        <!--<div class="card-footer"  style="padding-top: 5px;padding-bottom: 5px;padding-left: 25px">-->
+        <!--    <%#= will_paginate @every_post, renderer: BootstrapPagination::Rails,previous_label: '<i class="zmdi zmdi-chevron-left"></i>',next_label: '<i class="zmdi zmdi-chevron-right"></i>' %>-->
+            
+        <!--</div>-->
+</div>
+</div>

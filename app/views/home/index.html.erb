@@ -1,25 +1,9 @@
-<%= render partial: 'up_navbar' %>
-<div style="margin-top:-20px; padding:0;"/>
-    <div class="container">
+
+<div style="margin-top:auto; padding:0;"/>
+    <div class="container ctn">
         <div class="row" style="height:288px;">
             <div class="card col-md-3" style="height:100%;padding:0; margin:0">
-                
-               
-                <div class="profile-pic" align="center" style="margin:30px 0px  0px  0px;">
-                    <% if current_user.img_poa== true %>
-                        <img class="lv-img-mi" width="140" height="140" src="<%=Userpic.find_by(user_id: current_user.id ,main: true).profile_img%>" alt="">
-                    <% else%>
-                        <img class="lv-img-mi" width="140" height="140" src="https://s3.ap-northeast-2.amazonaws.com/prideoflion/uploads/userpic/1468549736JMEFWBKD.png" alt="">
-                    <% end%>
-                </div>
-                <p style="font-size:20px; margin:0; font-weight:bold; text-align:center;margin:5px 0px  0px  0px;"><%= current_user.username %></p>
-                <p style="font-size:16px; margin:0; font-weight:bold; text-align:left;margin:0px 0px  0px  10px;">학번 : <%= current_user.s_num %></p>
-                <p style="font-size:16px; margin:0; font-weight:bold; text-align:left;margin:0px 0px  0px  10px;">전화번호 : <%= current_user.p_num %></p>
-                <p style="font-size:16px; margin:0; font-weight:bold; text-align:left;margin:0px 0px  0px  10px;">접속 횟수 : <%= current_user.sign_in_count %></p>
-
-
-
-                <!--< render partial: 'top_xx'%>-->
+                <%= render partial: 'home/index/top_profile'%>
             </div>
             <div class="card col-md-6" style="height:100%;padding: 0;margin: 0; background:none; border:none;">
         		    <%= render partial: 'home/index/top_carousel'%>

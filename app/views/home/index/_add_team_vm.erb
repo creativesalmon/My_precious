@@ -44,12 +44,44 @@
                       <!--팀 이름 생성-->
                       <div class="form-group">
                         <label for="team-name" class="control-label">팀 이름:</label>
-                        <input type="text" name="team_name" class="form-control" id="team_name">
+                        <div class="form-group">
+                            <div class="fg-line">
+                               <input type="text" name="team_name" class="form-control" id="team_name" maxlength="10">
+                            </div>
+                        </div>
+                        
                       </div>
                       <!--팀 내용 생성-->
                       <div class="form-group">
                         <label for="intro_text" class="control-label">팀 내용:</label>
-                        <textarea name="intro_text" class="form-control" id="intro_text"></textarea>
+                        <div class="form-group">
+                                <div class="fg-line">
+                                    <textarea name="intro_text" class="form-control" id="intro_text" rows="3" maxlength="20"></textarea>
+                                </div>
+                            </div>
+                      </div>
+                       <!--데드라인 생성-->
+                      <div class="form-group">
+                        <label for="intro_text" class="control-label">마감일 여부:</label>
+                        <label class="radio radio-inline m-r-20">
+                                <input type="radio" name="deadline" onclick="checkftn(0)" checked="checked">
+                                <i class="input-helper"></i>  
+                               없음
+                        </label>
+                        <label class="radio radio-inline m-r-20">
+                            <input type="radio" name="deadline" onclick="checkftn(1)">
+                            <i class="input-helper"></i>  
+                            있음
+                        </label>
+                        <!--<input type="radio" name="deadline" onclick="checkftn(0)" checked="checked">없음-->
+                        <!--<input type="radio" name="deadline" onclick="checkftn(1)">있음-->
+                        <div class="input-group form-group">
+                          <span class="input-group-addon"><i class="zmdi zmdi-calendar"></i></span>
+                          <div class="dtp-container fg-line">
+                            <input type='text' class="form-control date-picker" name="deadline_date" id="myDate"placeholder="Click here..."  disabled >
+                          </div>
+                        </div>  
+                        <!--<input type="date" name="deadline_date" id="myDate" disabled>-->
                       </div>
                     </form>
                   </div>
@@ -79,8 +111,11 @@
         
         <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
             for="demo-menu-lower-right<%= t.id %>">
-          <li class="mdl-menu__item">Some Action</li>
-          <li class="mdl-menu__item">Another Action</li>
+          <!--<li class="mdl-menu__item">Some Action</li>-->
+          <% UserTeam.where(team_id: t.id ,power: 1, user_id: current_user.id).each do |p|%>
+            
+                  <li class="mdl-menu__item" onclick="location.href='/home/drop_team/<%=t.id%>';">팀 탈퇴</li>
+          <%end%>
           <% UserTeam.where(team_id: t.id ,power: 3).each do |p|%>
               <%if current_user.id==p.user_id%>
                 <li class="mdl-menu__item delete-menu" id="<%= t.id %>">팀 삭제</li>
@@ -88,7 +123,7 @@
                 <li disabled class="mdl-menu__item">팀 삭제</li>
               <% end %>
           <%end%>
-          <li class="mdl-menu__item">Yet Another Action</li>
+          <!--<li class="mdl-menu__item">Yet Another Action</li>-->
         </ul>
         <h2 class="mdl-card__title-text" style="font-weight: bold;" ><%= t.name %></h2>
         <h6 class="mdl-card__title-text	"style="font-size:13px;font-weight: bold;">&nbsp;<%= t.school.name%></h6>
@@ -98,7 +133,7 @@
       </div>
       <div class="mdl-card__actions mdl-card--border">
         <% if UserTeam.exists?(team_id: t.id ,user_id: current_user.id)%>
-        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" onclick="location.href='/home/team_page/<%=t.id%>';">
+        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" onclick="location.href='/home/team_page_vm/<%=t.id%>';">
         <%else%>
         <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" id="join-team<%=t.id%>">
         <%end%>
@@ -112,37 +147,41 @@
   <% i += 1 %>
 <% end%>
 
+<script>
+  function checkftn(option) {
+    if(option == "0"){
+      document.getElementById("myDate").disabled = true;
+    }else{
+      document.getElementById("myDate").disabled = false;
+    }
+  }
+</script>
+
 <!-- Square card -->
 
-
-
-    <style>
-        .demo-card-image.mdl-card {
-          width: auto;
-          text-align: center;
-          height: 233px;
-          background: url('') center / cover #46B6AC;
-        }
-        .demo-card-square.mdl-card {
-          width: auto;
-          height: 235px;
-        }
-        .demo-card-square > .mdl-card__title {
-          color: #000;
-          style:bold;
-          
-        }
-        .mdl-card__supporting-text{
-          font-size: 1.2rem;
-          line-height: 18px;
-          overflow: hidden;
-          padding-top: 10px;
-          padding-left:18px;
-          width: 100%;
-          font-weight: bold;
-        }
-    </style>
-    <script>
-   
-    </script>
-    
+<style>
+    .demo-card-image.mdl-card {
+      width: auto;
+      text-align: center;
+      height: 233px;
+      background: url('') center / cover #46B6AC;
+    }
+    .demo-card-square.mdl-card {
+      width: auto;
+      height: 235px;
+    }
+    .demo-card-square > .mdl-card__title {
+      color: #000;
+      style:bold;
+      
+    }
+    .mdl-card__supporting-text{
+      font-size: 1.2rem;
+      line-height: 18px;
+      overflow: hidden;
+      padding-top: 10px;
+      padding-left:18px;
+      width: 100%;
+      font-weight: bold;
+    }
+</style>

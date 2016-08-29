@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160807101302) do
+ActiveRecord::Schema.define(version: 20160829095335) do
 
   create_table "attendances", force: :cascade do |t|
     t.integer  "schedule_id"
@@ -21,45 +21,54 @@ ActiveRecord::Schema.define(version: 20160807101302) do
     t.datetime "updated_at",  null: false
   end
 
-  create_table "notice_posts", force: :cascade do |t|
-    t.text     "name"
-    t.text     "content"
+  create_table "b_nums", force: :cascade do |t|
+    t.integer  "count"
+    t.integer  "st"
+    t.integer  "et"
     t.integer  "team_id"
-    t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "notice_replies", force: :cascade do |t|
+  create_table "borrows", force: :cascade do |t|
     t.text     "content"
+    t.integer  "weight"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "favorites", force: :cascade do |t|
     t.integer  "user_id"
-    t.integer  "notice_post_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.integer  "post_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "post_replies", force: :cascade do |t|
     t.text     "content"
-    t.integer  "user_id"
     t.integer  "post_id"
     t.integer  "team_id"
+    t.text     "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "posts", force: :cascade do |t|
+    t.text     "tag",        default: ""
     t.text     "name"
     t.text     "content"
     t.integer  "user_id"
     t.integer  "team_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.text     "time"
+    t.string   "image_url",  default: ""
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
   create_table "schedules", force: :cascade do |t|
     t.string   "name"
     t.string   "position"
-    t.text     "date"
+    t.date     "date"
     t.text     "time"
     t.integer  "team_id"
     t.datetime "created_at", null: false
@@ -77,6 +86,7 @@ ActiveRecord::Schema.define(version: 20160807101302) do
     t.text     "intro_text"
     t.text     "team_img",   default: "team_default.jpg"
     t.integer  "school_id"
+    t.text     "deadline"
     t.datetime "created_at",                              null: false
     t.datetime "updated_at",                              null: false
   end
@@ -85,6 +95,7 @@ ActiveRecord::Schema.define(version: 20160807101302) do
     t.integer  "user_id"
     t.integer  "team_id"
     t.integer  "power",      default: 1
+    t.integer  "count",      default: 0
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end

@@ -3,7 +3,11 @@ Rails.application.routes.draw do
     
     match ":controller(/:action(/:id))", :via =>
     [:get, :post]
-    
+    get 'destroy_wall/:post_id' => 'home#destroy_wall'
+    get 'destroy_rp/:post_id' => 'home#destroy_rp'
+    get 'destroy/:post_id' => 'home#destroy'
+    get 'update_view/:post_id' => 'home#update_view'
+    get 'real_update/:post_id' => 'home#real_update'
     
     
     # get 'team_page/:id' => "home#team_page"

@@ -500,7 +500,7 @@ $(document).ready(function(){
      */
     if ($('.html-editor')[0]) {
 	   $('.html-editor').summernote({
-            height: 150
+            height: 400
         });
     }
 

@@ -1,0 +1,137 @@
+ <div class="card wall-posting">
+    <form action="/home/team_schedule/<%=@team.id%>" method="POST">
+    <div class="card-header">
+        <h2>일정 생성하기</h2>
+    </div>
+    <div class="card-body card-padding">
+        <input type="hidden" name="team_id" value="<%=@team.id%>">
+        <textarea name="sche_name" class="wp-text" data-auto-size placeholder="Write Something..."></textarea>
+        
+        <div class="tab-content p-0">
+            <div class="wp-media tab-pane" id="wpm-image">
+                장소를 입력해주세요
+                <textarea name="sche_posi" class="wp-text" data-auto-size placeholder="장소를 입력해주세요"style="background-color:#f7f7f7;"></textarea>
+            </div>
+            
+            <div class="wp-media tab-pane" id="wpm-video">
+                날짜를 입력해주세요
+                 <div class="input-group form-group">
+                    <span class="input-group-addon"><i class="zmdi zmdi-calendar"></i></span>
+                        <div class="dtp-container fg-line">
+                        <input type="text" name="sche_date" class="form-control date-picker" placeholder="Click here..."style="background-color:#f7f7f7;">
+                    </div>
+                </div>      
+            </div>
+            
+            <div class="wp-media tab-pane" id="wpm-link">
+                시간을 입력해주세요
+                <div class="input-group form-group">
+                    <span class="input-group-addon"><i class="zmdi zmdi-time"></i></span>
+                        <div class="dtp-container fg-line">
+                        <input type="text" name="sche_time" class="form-control time-picker" placeholder="Click here..."style="background-color:#f7f7f7;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <ul class="list-unstyled clearfix wpb-actions">
+        <li class="wpba-attrs">
+            <ul class="list-unstyled list-inline m-l-0 m-t-5">
+                <li><a data-wpba="image" data-toggle="tab" href="" data-target="#wpm-image"><i class="zmdi zmdi-pin zmdi-hc-fw"></i></a></li>
+                <li data-wpba="image" data-toggle="tab" href="" data-target="#wpm-image" style="margin-left: -10px; padding-right: 3px;">장소</li>
+                <li><a data-wpba="video" data-toggle="tab" href="" data-target="#wpm-video"><i class="zmdi zmdi-calendar"></i></a></li>
+                <li data-wpba="video" data-toggle="tab" href="" data-target="#wpm-video" style="margin-left: -10px;     padding-right: 3px;">날짜</li>
+                <li><a data-wpba="link" data-toggle="tab" href="" data-target="#wpm-link"><i class="zmdi zmdi-time"></i></a></li>
+                <li data-wpba="link" data-toggle="tab" href="" data-target="#wpm-link" style="margin-left: -10px;     padding-right: 3px;">시간</li>
+            </ul>
+        </li>
+
+        <li class="pull-right"><button type="submit" class="btn btn-primary btn-sm">Post</button></li>
+    </ul>
+    </form>
+</div>
+<% if @team.schedules.exists? %>
+<% @team.schedules.order("date asc").each do |s|%>
+    <div class="card">
+        <div class="card-header">
+            <h2>일정 정보<small><%=@team.name%></small></h2>
+            <div class="media">
+                <div class="pull-right p-0">
+                
+                <ul class="actions">
+                    
+                    <li class="dropdown action-show">
+                        
+                        <a href="" data-toggle="dropdown" aria-expanded="false">
+                            <i class="zmdi zmdi-more-vert"></i>
+                        </a>
+                        
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <!--<li>-->
+                            <!--    <a href= "/update_view/<%#=p.id%>"> 수정 </a>-->
+                            <!--</li>-->
+                            <li>
+                                
+                                 <a href="/home/destroy_sch/<%=s.id%>">일정 삭제</a>
+                                
+                            </li>
+                        </ul>
+                        
+                    </li>
+                     
+                </ul>
+               
+            </div>
+            </div>
+        </div>
+        <div class="card-body card-padding">
+            <div class="pmo-contact">        
+                <ul>
+                    <!--<li class="ng-binding"><i class="zmdi zmdi-phone"></i> 00971123456789</li>-->
+                    <!--<li class="ng-binding"><i class="zmdi zmdi-email"></i> malinda.h@gmail.com</li>-->
+                    <li class="ng-binding"><i class="zmdi zmdi-calendar-note zmdi-hc-fw"></i> <%=s.name%></li>
+                    <li class="ng-binding"><i class="zmdi zmdi-time"></i> <%=s.date%> <%=s.time%></li>
+                    <li>
+                        <i class="zmdi zmdi-pin"></i>
+                        <address class="m-b-0 ng-binding">
+                            <%=s.position%>
+                        </address>
+                    </li>
+                </ul>
+            </div>
+            
+            <!--<a class="pmo-map" href="">-->
+            <!--    <img src="/mtl/img/demo/map.png" alt="">-->
+            <!--</a>-->
+        </div>
+    </div>
+<%end%>
+<%else%>
+    <div class="card">
+        <div class="card-header">
+            <h2>일정 정보<small>팀이름</small></h2>
+        </div>
+        <div class="card-body card-padding">
+            <div class="pmo-contact">        
+                <ul>
+                    <!--<li class="ng-binding"><i class="zmdi zmdi-phone"></i> 00971123456789</li>-->
+                    <!--<li class="ng-binding"><i class="zmdi zmdi-email"></i> malinda.h@gmail.com</li>-->
+                    <li class="ng-binding"><i class="zmdi zmdi-calendar-note zmdi-hc-fw"></i> 일정 이름</li>
+                    <li class="ng-binding"><i class="zmdi zmdi-time"></i> 일정 날짜 시간</li>
+                    <li>
+                        <i class="zmdi zmdi-pin"></i>
+                        <address class="m-b-0 ng-binding">
+                            장소를 입력해주세요
+                           
+                        </address>
+                    </li>
+                </ul>
+            </div>
+            
+            <!--<a class="pmo-map" href="">-->
+            <!--    <img src="/mtl/img/demo/map.png" alt="">-->
+            <!--</a>-->
+        </div>
+    </div>
+<%end%>

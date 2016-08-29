@@ -1,18 +1,62 @@
     <div class="card profile-view" style="height:100%">
-        <div class="pv-header">
+        <%@num=[*1..9]%>
+        <div id="photo_box" class="pv-header" style="background-image:url('https://s3.ap-northeast-2.amazonaws.com/prideoflion/use/<%=@num.sample.to_s%>.png')">
             <!--<img src="img/profile-pics/profile-pic.jpg" class="pv-main" alt="">-->
             <% if current_user.img_poa== true %>
-                <img class="pv-main" src="<%=Userpic.find_by(user_id: current_user.id ,main: true).profile_img%>" alt="">
+                <img class="pv-main" src="<%=Userpic.find_by(user_id: current_user.id ,main: true).profile_img%>" alt="" data-toggle="modal" data-target="#myModal" data-backdrop="false">
             <% else%>
-                <img class="pv-main" src="https://s3.ap-northeast-2.amazonaws.com/prideoflion/uploads/userpic/1468549736JMEFWBKD.png" alt="">
+                <img class="pv-main" src="https://s3.ap-northeast-2.amazonaws.com/prideoflion/use/profile_default.png" alt="" data-toggle="modal" data-target="#myModal" data-backdrop="false">
             <% end%>
+            <!-- Modal -->
+                <div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">프로필 사진 변경</h4>
+                      </div>
+                      <form action="/home/user_pic_upload" method="post" enctype="multipart/form-data">
+                          <div class="modal-body">
+                              <label for="image">Image:</label>
+                              <input type="file" name="image" accept="image/*" id="image"><br>
+                                <div id="image_preview">
+                                    <img style="border:0;" src="https://placehold.it/200x200" alt="이미지를 선택해주세요"width="200px" height="200px" />
+                                    <br />
+                                    <a href="#">Remove</a>
+                                </div>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+                            <button type="submit" class="btn btn-primary">변경하기</button>
+                          </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
         </div>
         <div class="pv-body">
             <h2><%= current_user.username %></h2>
             <br>
-            <ul class="pv-contact">
-                <li><i class="zmdi zmdi-pin"></i><%= current_user.s_num %></li>
-                <li><i class="zmdi zmdi-phone"></i><%= current_user.p_num %></li>
-            </ul>
+            <div id="account_detail" style="display:none;">
+                <br>
+                <ul class="pv-contact" style="margin-top:10px;">
+                    <li><i class="zmdi zmdi-pin"></i> <%= current_user.s_num %></li>
+                    <li><i class="zmdi zmdi-phone"></i> <%= current_user.p_num %></li>
+                </ul>
+                <ul class="pv-follow">
+                    <li><%=current_user.teams.count%>개 팀 소속</li>
+                    <li><%=UserTeam.where(user_id: current_user.id,power: 3).count%>개 팀 팀장</li>
+                </ul>
+            </div>
+
+            <div id="mod_account" style="padding:0;margin-top:-6px">
+                <a id="mod_account1" class="btn btn-info waves-effect" style="width:49%">자세히 보기</a>
+                <a href="/users/sign_out" class="btn btn-warning waves-effect" style="width:49%">로그아웃</a>
+            </div>
+            <div id="mod_account2" style="display:none; padding:0">
+                <a class="btn btn-warning waves-effect" style="width:49%">확인</a>
+                <a id="mod_account3" class="btn btn-info waves-effect" style="width:49%">돌아가기</a>
+            </div>
+          
         </div>
     </div>

@@ -1,0 +1,84 @@
+ <% @school=@team.school.name%>
+<div class="card wall-posting">
+ <div class="card-header">
+        <h2>대관 내용 생성하기</h2>
+    </div>
+    <form action="/home/borrow" method="POST" enctype="multipart/form-data">
+    <div class="card-body card-padding">
+        <input type="hidden" name="team_id" value="<%=@team.id%>">
+        <input type="hidden" name="tag" value="">
+        
+       
+        <p>시작 시간 설정</p>
+       <div class="input-group form-group">
+            <span class="input-group-addon"><i class="zmdi zmdi-time"></i></span>
+                <div class="dtp-container fg-line">
+                <input type="text" name="start_time" class="form-control time-picker" placeholder="Click here...">
+            </div>
+        </div>
+        <p>끝 시간 설정</p>
+       <div class="input-group form-group">
+            <span class="input-group-addon"><i class="zmdi zmdi-time"></i></span>
+                <div class="dtp-container fg-line">
+                <input type="text" name="end_time" class="form-control time-picker" placeholder="Click here...">
+            </div>
+        </div>
+    </div>
+    
+    <ul class="list-unstyled clearfix wpb-actions">
+      
+        
+        <li class="pull-right"><button type="submit" class="btn btn-primary btn-sm">Post</button></li>
+    </ul>
+    </form>
+</div>
+    <% if BNum.where(team_id: @team.id).exists?%>
+    <div class="card">
+        <div class="card-header">
+            <h2>대관 내용 생성기<small><%=@team.name%></small></h2>
+        </div>
+        <div class="card-body card-padding">
+            <div class="pmo-contact">        
+                <ul>
+                    <%cnt=BNum.where(team_id: @team.id).last.count%>
+                        <%for i in 1..cnt%>
+                        	<%st=BNum.where(team_id: @team.id).last.st%>
+							<%et=st+i%>
+							<%e1t=et-1%>
+                            <%case i%>
+                                <%when 1%>
+                                    <%w=1%>
+                                    <%w2=2%>
+                                <%when cnt%>
+                                    <%w=4%>
+                                <%else%>
+                                    <%w=3%>
+                            <%end%>
+                            <%if i==1%>
+                                <%w1=Borrow.where(weight: w).pluck(:content)%>
+                                <%w11=w1.sample(1)%>
+                                    <li class="ng-binding"><%= @school%> <%=@team.name%>팀 취업<%=w11[0].to_s%></li>
+                                <%w2=Borrow.where(weight: w2).pluck(:content)%>
+                                <%w22=w2.sample(1)%>
+                                   <li class="ng-binding"><%=e1t%>:00 ~<%=et%>:00  <%=w22[0].to_s%></li>
+                            <%else%>
+                            <%w3=Borrow.where(weight: w).pluck(:content)%>
+                                <%w33=w3.sample(1)%>
+                                <li class="ng-binding"><%=e1t%>:00 ~<%=et%>:00 <%=w33[0].to_s%></li>
+                            <%end%>
+                            
+                        <%end%>
+                    
+                    
+                    
+                </ul>
+            </div>
+            
+            <!--<a class="pmo-map" href="">-->
+            <!--    <img src="/mtl/img/demo/map.png" alt="">-->
+            <!--</a>-->
+        </div>
+    </div>
+    <%end%>
+        
+        

@@ -22,30 +22,27 @@
 <script src="/mtl/vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
 <script src="/mtl/vendors/bower_components/chosen/chosen.jquery.min.js"></script>
 
-<script src="/mtl/vendors/summernote/dist/summernote-updated.min.js"></script>
+<script src="/mtl/vendors/summernote/dist/summernote-updated.js"></script>
 <script src="/mtl/vendors/input-mask/input-mask.min.js"></script>
 <script src="/mtl/vendors/farbtastic/farbtastic.min.js"></script>
+<!--검색기능 추가-->
+<script src="/mtl/vendors/bootgrid/jquery.bootgrid.updated.js"></script>
+<script src="/mtl/vendors/bootstrap-growl/bootstrap-growl.min.js"></script>
 <!-- Placeholder for IE9 -->
 <!--[if IE 9 ]>
     <script src="/mtl/vendors/bower_components/jquery-placeholder/jquery.placeholder.min.js"></script>
 <![endif]-->
+<!--<script src="/mtl/vendors/sparklines/jquery.sparkline.min.js"></script>-->
+<!--<script src="/mtl/vendors/bower_components/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js"></script>-->
+<!--<script src="/mtl/vendors/bower_components/flot/jquery.flot.js"></script>-->
+<!--<script src="/mtl/vendors/bower_components/flot/jquery.flot.resize.js"></script>-->
+<script src="/mtl/js/charts.js"></script>
 
 <script src="/mtl/js/functions.js"></script>
 <script src="/mtl/js/demo.js"></script>
 
+
 <!--캘린더-->
-<script type="text/javascript"
-     src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js">
-    </script> 
-    <script type="text/javascript"
-     src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js">
-    </script>
-    <script type="text/javascript"
-     src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.min.js">
-    </script>
-    <script type="text/javascript"
-     src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.pt-BR.js">
-    </script>
 <script type="text/javascript">
 
 
@@ -55,6 +52,7 @@ It emplements very basic validation using the file extension.
 If the filename passes validation it will show the image using it's blob URL  
 and will hide the input field and show a delete button to allow the user to remove the image
 */
+
 
 $('#image').on('change', function() {
     
@@ -138,7 +136,7 @@ function resetFormElement(e) {
             
                 swal({   
                     title: "정말 팀을 삭제하시겠습니까?",   
-                    text: "예를 누른다면 되살릴 수 없습니다.!",   
+                    text: "예를 누른다면 되살릴 수 없습니다.!",
                     type: "warning",   
                     showCancelButton: true,   
                     confirmButtonColor: "#DD6B55",   
@@ -163,4 +161,44 @@ function resetFormElement(e) {
                     } 
                 });
             });
+            
+             //Selection
+                $("#data-table-selection").bootgrid({
+                    css: {
+                        icon: 'zmdi icon',
+                        iconColumns: 'zmdi-view-module',
+                        iconDown: 'zmdi-expand-more',
+                        iconRefresh: 'zmdi-refresh',
+                        iconUp: 'zmdi-expand-less'
+                    },
+                    selection: true,
+                    multiSelect: true,
+                    rowSelect: true,
+                    keepSelection: true
+                });
+                
+                // 마이페이지 보여주기
+                $("#mod_account1").click(function(){
+                    $("#photo_box").hide("fast");
+                    $("#mod_account").hide("fast");
+                    $("#account_detail").show("fast");
+                    $("#mod_account2").show("fast");
+                });
+                $("#mod_account3").click(function(){
+                    $("#account_detail").hide("fast");
+                    $("#mod_account2").hide("fast");
+                    $("#photo_box").show("fast");
+                    $("#mod_account").show("fast");
+                });
+                
+                // 좋아요 ajax
+                $(".thumb_up").click(function()
+                { 
+                    post_id = this.id;
+                    $.ajax({
+                      method: "POST",
+                      url: "/home/favorite/",
+                      data: {id_of_post: post_id}
+                     })
+                });
 </script>

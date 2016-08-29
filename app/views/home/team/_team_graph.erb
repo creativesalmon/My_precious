@@ -1,0 +1,25 @@
+<div class="col-md-9">
+    <div class="row">
+    <% @sc=@team.schedules.pluck(:id)%>
+    <% UserTeam.where(team_id: @team.id).each do |a| %>
+        <div class=" col-md-4 ">
+            <div class="p-t-20 p-b-20 text-center bgm-white z-depth(3)">
+                <%= User.find(a.user_id).username %>
+            </div>
+            <% if Attendance.where(user_id: a.user_id,status: [0,1,2]).count != 0 %>
+                <% per = Attendance.where(user_id: a.user_id, status: [1,2], schedule_id: @sc).count/Attendance.where(user_id: a.user_id,status: [0,1,2], schedule_id: @sc).count*100%>
+            <% else %>
+                <% per = 0%>
+            <% end %>
+            <div class="epc-item bgm-gray">
+                <div class="easy-pie main-pie"  data-percent="<%= per%>">
+                    <div class="percent"><%= per%></div>
+                    <div class="pie-title" style="top: 160px;">출석률 <%=Attendance.where(user_id: a.user_id, status: [1,2], schedule_id: @sc).count%>/<%=Attendance.where(user_id: a.user_id,status: [0,1,2], schedule_id: @sc).count%> </div>
+                </div>
+            </div>
+        </div >
+        
+    <% end %> 
+       
+    </div>
+</div>

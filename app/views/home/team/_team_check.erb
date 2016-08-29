@@ -1,0 +1,138 @@
+<div class="col-md-9">
+    <%@date = Date.current%>
+<%if Schedule.where(team_id: @team.id,date: @date).exists?%>
+    <% Schedule.where(team_id: @team.id,date: @date).each do |s|%>
+    <div class="card">
+    <div class="card-header">
+        
+        <h2>출석 체크<small>팀플매니저 출석 체크 기능입니다.</small></h2>
+    </div>
+    
+     
+    <form action="/home/edit_atten" method="POST">
+        <input type="hidden" name="team_id" value="<%=@team.id%>">                 
+        <div class="card-body card-padding">
+            <p class="c-black f-500 m-b-20"><%= s.name %> </p>
+            
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>사진</th>
+                        <th>이름</th>
+                        <th>전화번호</th>
+                        <th>학번</th>
+                        <th>출석</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% UserTeam.where(team_id: @team.id).all.each do |p| %>
+                    <tr>
+                        <td>
+                           <a href="" class="pull-left">
+                                <% if p.user.img_poa== true %> <!-- 이미지가 있을 경우 즉 프사를 올렸을경우 -->
+                                    <img class="lv-img-sm" src="<%=Userpic.find_by(user_id:  p.user.id ,main: true).profile_img%>" alt="">
+                                <% else%>
+                                    <img class="lv-img-sm" src="https://s3.ap-northeast-2.amazonaws.com/prideoflion/use/profile_default.png" alt="">
+                                <% end%>
+                            </a>
+                        </td>
+                        <td style="vertical-align:middle;"><%= p.user.username%></td>
+                        <td style="vertical-align:middle;"><%= p.user.p_num%></td>
+                        <td style="vertical-align:middle;"><%= p.user.s_num%></td>
+                        <td style="vertical-align:middle;">
+                         
+                  
+                            <label class="radio radio-inline m-r-20">
+                                <input type="radio" name="<%= p.user.id%>" <%if Attendance.find_by(schedule_id: s.id,user_id: p.user.id).status == 1%> checked="true" <%end%>value="1">
+                                <i class="input-helper"></i>  
+                                참석
+                            </label>
+                            
+                            <label class="radio radio-inline m-r-20">
+                                <input type="radio" name="<%= p.user.id%>"<%if Attendance.find_by(schedule_id: s.id,user_id: p.user.id).status == 2%> checked="true" <%end%>value="2">
+                                <i class="input-helper"></i>  
+                                지각
+                            </label>
+                            
+                            <label class="radio radio-inline m-r-20">
+                                <input type="radio" name="<%= p.user.id%>" <%if Attendance.find_by(schedule_id: s.id,user_id: p.user.id).status == 0%> checked="true"<%end%>value="0">
+                                <i class="input-helper"></i>  
+                                결석
+                            </label>
+                        </td>
+                    </tr>
+                    <%end%>
+                </tbody>
+            </table>
+            <div style="test-align: center;padding:25px;">
+                <button type="submit" class="btn btn-primary btn-sm waves-effect"  style="float: right;">출석부 등록</button>
+            </div>
+        </div>
+    </form>
+    
+</div>
+<%end%>
+<%else%>
+    <div class="card">
+    <div class="card-header">
+        
+        <h2>출석 체크<small>팀플매니저 출석 체크 기능입니다.</small></h2>
+    </div>
+
+                    
+        <div class="card-body card-padding">
+            <p class="c-black f-500 m-b-20">오늘 일정이 없습니다. 오늘 일정이 등록되어 있다면 출석부기능을 이용할 수 있습니다.</p>
+             <p class="c-black f-500 m-b-20">오늘 일정이 등록되어 있다면 출석부기능을 이용할 수 있습니다.</p>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>사진</th>
+                        <th>이름</th>
+                        <th>전화번호</th>
+                        <th>학번</th>
+                        <th>출석</th>           
+                    </tr>
+                </thead>
+                <tbody>
+                   
+                    <tr>
+                        <td>
+                           <a href="" class="pull-left">
+                            
+                                    <img class="lv-img-sm" src="https://s3.ap-northeast-2.amazonaws.com/prideoflion/use/profile_default.png" alt="">
+                                
+                            </a>
+                        </td>
+                        <td style="vertical-align:middle;">노종원</td>
+                        <td style="vertical-align:middle;">010-3511-5502</td>
+                        <td style="vertical-align:middle;">20111111489</td>
+                        <td style="vertical-align:middle;">
+                         
+                  
+                            <label class="radio radio-inline m-r-20">
+                                <input type="radio" name="1"  checked="false" value="1">
+                                <i class="input-helper"></i>  
+                                참석
+                            </label>
+                            
+                            <label class="radio radio-inline m-r-20">
+                                <input type="radio" name="1" checked="false" value="2">
+                                <i class="input-helper"></i>  
+                                지각
+                            </label>
+                            
+                            <label class="radio radio-inline m-r-20">
+                                <input type="radio" name="1"  checked="true" value="0">
+                                <i class="input-helper"></i>  
+                                결석
+                            </label>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    
+</div>
+<%end%>
+
+</div>

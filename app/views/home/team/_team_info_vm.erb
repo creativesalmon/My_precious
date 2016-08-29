@@ -1,0 +1,40 @@
+<div class=" picture-list">
+    <div class="card-header">
+        <% a = @team %>
+        <h2><%= a.name %> <small><%= a.intro_text %></small></h2>
+        
+        <!--<ul class="actions">-->
+        <!--    <li class="dropdown action-show">-->
+        <!--        <a href="" data-toggle="dropdown">-->
+        <!--            <i class="zmdi zmdi-more-vert"></i>-->
+        <!--        </a>-->
+        <!--        <ul class="dropdown-menu dropdown-menu-right">-->
+        <!--            <li>-->
+        <!--                <a href="">Refresh</a>-->
+        <!--            </li>-->
+        <!--            <li>-->
+        <!--                <a href="">Manage Widgets</a>-->
+        <!--            </li> -->
+        <!--            <li>-->
+        <!--                <a href="">Widgets Settings</a>-->
+        <!--            </li>-->
+        <!--        </ul>-->
+        <!--    </li>-->
+        <!--</ul>-->
+    </div>
+    
+    <div class="pl-body ">
+        <% UserTeam.where(team_id: @team.id).all.each do |p| %>
+        <div class="col-xs-3 ">
+            <a href="" class="thumbnail"   data-toggle="tooltip" data-original-title="<%=p.user.username%>">
+            <% if User.find(p.user_id).img_poa== true %>
+                <img src="<%=Userpic.find_by(user_id: p.user_id ,main: true).profile_img%>" alt="" style="height:59.93px;">
+            <% else%>
+                <img src="https://s3.ap-northeast-2.amazonaws.com/prideoflion/use/profile_default.png" alt="">
+            <%end%>
+            </a>
+        </div>
+        <%end%>
+    </div>
+</div>
+

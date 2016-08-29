@@ -1,0 +1,27 @@
+
+    <ul class="main-menu  z-depth(1)" style="background-coler:white;">
+        <li>
+            <a href="/home/team_page_vm/<%=@team.id%>" ><i class="zmdi zmdi-home"></i>홈</a>
+        </li>
+        <li>
+            <a href="/home/team_page_vm_post/<%=@team.id%>"  ><i class="zmdi zmdi-assignment zmdi-hc-fw"></i>공지사항</a>
+        </li>
+        <li>
+            <a href="/home/team_page_vm_sche/<%=@team.id%>" ><i class="zmdi zmdi-calendar-note zmdi-hc-fw"></i>일정</a>
+        </li>
+        <li>
+            <a href="/home/team_page_bor/<%=@team.id%>" ><i class="zmdi zmdi-assignment-check zmdi-hc-fw"></i>대관</a>
+        </li>
+        <li class="sub-menu" style="background-coler:white;">
+            <a href="" ><i class="zmdi zmdi-view-compact"></i>출석부</a>
+            <ul class="list-group">
+                <li>
+                    <a href="/home/team_page_vm_check/<%=@team.id%>">출석체크</a>
+                </li>
+                <li>
+                    <a href="/home/team_page_vm_graph/<%=@team.id%>" class="list-group-item">출석현황</a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    
