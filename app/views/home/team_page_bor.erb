@@ -9,7 +9,7 @@
               <% cd = t.created_at.strftime('%s').to_f %>
               <% ed = t.deadline.to_datetime.strftime('%s').to_f %>
               <% res = ((td-cd)/(ed-cd)).round(2)*100%>
-              <% res = ((td-cd)/(cd)).round(2)*100%>
+              <% #res = ((td-cd)/(cd)).round(2)*100%>
               
               <div class="progress" style="height: 30px">
               <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="<%=res %>" aria-valuemin="0" aria-valuemax="100" style="min-width: 2em;width: <%=res %>%;">
