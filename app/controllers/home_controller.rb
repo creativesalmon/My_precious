@@ -277,6 +277,11 @@ class HomeController < ApplicationController
     a = Team.find(params[:id])
     b=UserTeam.find_by(user_id: current_user.id, team_id: a.id)
     b.delete
+    # b는 UserTeam 관계테이블에서 삭제 find_by는 한 행만 찾기 때문에 where을 사용해서 모든 행을 검사하고 do end문으로 다 삭제함
+    @b = UserTeam.where(team_id: params[:id])
+      @b.each do |b|
+        b.delete
+      end
     redirect_to :back
   end
   
