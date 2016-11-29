@@ -1,87 +1,104 @@
- <div class="card wall-posting">
+<div class="card wall-posting">
     <form action="/home/write_wall" method="POST" enctype="multipart/form-data">
-    <div class="card-body card-padding">
-        <input type="hidden" name="team_id" value="<%=@team.id%>">
-        <input type="hidden" name="tag" value="">
-        <textarea name="content" class="wp-text" data-auto-size placeholder="Write Something..."></textarea>
-        
-        <div class="tab-content p-0">
-            <div class="wp-media tab-pane" id="wpm-image">
-                <input type="file" name="pic" accept="image/*">
-            </div>
-            
-            <div class="wp-media tab-pane" id="wpm-video">
-                Video Links - Coming soon...
-            </div>
-            
-            <div class="wp-media tab-pane" id="wpm-link">
-                Links - Coming soon...
+        <div class="card-body card-padding">
+            <input type="hidden" name="team_id" value="<%=@team.id%>">
+            <input type="hidden" name="tag" value="">
+            <textarea name="content" class="wp-text" data-auto-size placeholder="Write Something..."></textarea>
+
+            <div class="tab-content p-0">
+                <div class="wp-media tab-pane" id="wpm-image">
+                    <input type="file" name="pic" accept="image/*">
+                </div>
+
+                <div class="wp-media tab-pane" id="wpm-video">
+                    Video Links - Coming soon...
+                </div>
+
+                <div class="wp-media tab-pane" id="wpm-link">
+                    Links - Coming soon...
+                </div>
             </div>
         </div>
-    </div>
-    
-    <ul class="list-unstyled clearfix wpb-actions">
-        <li class="wpba-attrs">
-            <ul class="list-unstyled list-inline m-l-0 m-t-5">
-                <li><a data-wpba="image" data-toggle="tab" href="" data-target="#wpm-image"><i class="zmdi zmdi-image"></i></a></li>
-                <li><a data-wpba="video" data-toggle="tab" href="" data-target="#wpm-video"><i class="zmdi zmdi-play-circle"></i></a></li>
-                <li><a data-wpba="link" data-toggle="tab" href="" data-target="#wpm-link"><i class="zmdi zmdi-link"></i></a></li>
-            </ul>
-        </li>
-        
-        <li class="pull-right"><button type="submit" class="btn btn-primary btn-sm">Post</button></li>
-    </ul>
+
+        <ul class="list-unstyled clearfix wpb-actions">
+            <li class="wpba-attrs">
+                <ul class="list-unstyled list-inline m-l-0 m-t-5">
+                    <li>
+                        <a data-wpba="image" data-toggle="tab" href="" data-target="#wpm-image">
+                            <i class="zmdi zmdi-image"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a data-wpba="video" data-toggle="tab" href="" data-target="#wpm-video">
+                            <i class="zmdi zmdi-play-circle"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a data-wpba="link" data-toggle="tab" href="" data-target="#wpm-link">
+                            <i class="zmdi zmdi-link"></i>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="pull-right">
+                <button type="submit" class="btn btn-primary btn-sm">Post</button>
+            </li>
+        </ul>
     </form>
 </div>
 <% if @every_post.exists? %>
 <% @every_post.each do |p|%>
-    <div class="card">
+<div class="card">
     <div class="card-header">
-        
+
         <div class="media">
             <a href="" class="pull-left">
-                <% if p.user.img_poa== true %> <!-- 이미지가 있을 경우 즉 프사를 올렸을경우 -->
-                    <img class="lv-img-sm" src="<%=Userpic.find_by(user_id:  p.user.id ,main: true).profile_img%>" alt="">
-                <% else%>
-                    <img class="lv-img-sm" src="https://s3.ap-northeast-2.amazonaws.com/prideoflion/use/profile_default.png" alt="">
+                <% if p.user.img_poa== true %>
+                <!-- 이미지가 있을 경우 즉 프사를 올렸을경우 -->
+                <img class="lv-img-sm" src="<%=Userpic.find_by(user_id:  p.user.id ,main: true).profile_img%>" alt="">
+            <% else%>
+                <img class="lv-img-sm" src="https://s3.ap-northeast-2.amazonaws.com/timple/use/profile_default.png" alt="">
                 <% end%>
             </a>
             <div class="pull-right p-0">
-                
+
                 <ul class="actions">
-                    
+
                     <li class="dropdown action-show">
-                        
+
                         <a href="" data-toggle="dropdown" aria-expanded="false">
                             <i class="zmdi zmdi-more-vert"></i>
                         </a>
-                        
+
                         <ul class="dropdown-menu dropdown-menu-right">
                             <!--<li>-->
                             <!--    <a href= "/update_view/<%#=p.id%>"> 수정 </a>-->
                             <!--</li>-->
                             <li>
                                 <% if current_user.id == p.user_id %>
-                                 <a href="/destroy_wall/<%=p.id%>">삭제</a>
+                                <a href="/destroy_wall/<%=p.id%>">삭제</a>
                                 <%end%>
                             </li>
                         </ul>
-                        
+
                     </li>
-                     
+
                 </ul>
-               
+
             </div>
-            
+
             <div class="media-body m-t-5">
-                <h2><%= User.find(p.user_id).username %> <small><%= time_ago_in_words(p.created_at) %></small></h2>
+                <h2><%= User.find(p.user_id).username %>
+                    <small><%= time_ago_in_words(p.created_at) %></small>
+                </h2>
             </div>
         </div>
     </div>
-    
+
     <div class="card-body card-padding">
         <% unless p.tag==""%>
-            <p><%= p.tag%></p>
+        <p><%= p.tag%></p>
         <%end%>
         <p><%= p.content.html_safe%></p>
         <% unless p.image_url==""%>
@@ -98,124 +115,149 @@
         <%end%>
         <ul class="wall-attrs clearfix list-inline list-unstyled">
             <li class="wa-stats">
-                <span><i class="zmdi zmdi-comments"></i> <%=p.post_replies.count%></span>
-                <span class="active waves-effect thumb_up" id="<%=p.id%>" ><i class="zmdi zmdi-favorite"></i><%=p.favorites.count%></span>
+                <span>
+                    <i class="zmdi zmdi-comments"></i>
+                    <%=p.post_replies.count%></span>
+                <%#=link_to "<span class=\"active waves-effect\" id=\"#{p.id}\">
+                        <i class=\"zmdi zmdi-favorite\"></i><font id=\"favorfont\">#{p.favorites.count}</font></span>".html_safe,action: :favorite, id: "#{p.id}",user_id: "#{current_user.id}" , remote: true %>
+                <span class="active waves-effect thumb_up" id="<%=p.id%>" >
+                    <i class="zmdi zmdi-favorite"></i>
+                    <font class="favorfont" id="<%=p.favorites.count%>" self="<%=current_user.favorites.exists?%>"><%=p.favorites.count%></font>
+                </span>
             </li>
-            
+
             <li class="wa-users">
+              <% if current_user.img_poa== true %>
+              <a href=""><img class="hidepic" style="display:none;" src="<%= Userpic.find_by(user_id: current_user.id ,main: true).profile_img %>" alt="" data-toggle="tooltip" data-original-title="<%=current_user.username%>"></a>
+              <% else%>
+              <a href=""><img class="hidepic" style="display:none;" src="https://s3.ap-northeast-2.amazonaws.com/timple/use/profile_default.png" alt="" data-toggle="tooltip" data-original-title="<%=current_user.username%>"></a>
+              <% end%>
                 <%if p.favorites.exists?%>
-                    <% p.favorites.all.each do |f|%>
-                        <% if f.user.img_poa== true %>
-                            <a href=""><img src="<%= Userpic.find_by(user_id: f.user_id ,main: true).profile_img %>" alt="" data-toggle="tooltip" data-original-title="<%=f.user.username%>"></a>
-                        <% else%>
-                            <a href=""><img src="https://s3.ap-northeast-2.amazonaws.com/prideoflion/use/profile_default.png" alt="" data-toggle="tooltip" data-original-title="<%=f.user.username%>"></a>
-                        <% end%>
-                    <% end%>
+                <% p.favorites.all.each do |f|%>
+                <% if f.user.img_poa== true %>
+                <a href=""><img class="mypic" src="<%= Userpic.find_by(user_id: f.user_id ,main: true).profile_img %>" alt="" data-toggle="tooltip" data-original-title="<%=f.user.username%>"></a>
+                <% else%>
+                <a href=""><img class="mypic" src="https://s3.ap-northeast-2.amazonaws.com/timple/use/profile_default.png" alt="" data-toggle="tooltip" data-original-title="<%=f.user.username%>"></a>
+                <% end%>
+                <% end%>
                 <% end%>
             </li>
-        </ul>    
+        </ul>
     </div>
-    
+
     <div class="wall-comment-list">
-        
+
         <!-- Comment Listing -->
         <div class="wcl-list">
-            <% PostReply.where(post_id: p.id).each do |pr| %> 
-                    <div class="media">
-                        <!--<a href="" class="pull-left">-->
-                        <!--    <img src="/mtl/img/profile-pics/5.jpg" alt="" class="lv-img-sm">-->
-                        <!--</a>-->
-                        <a href="" class="pull-left">
-                            <% if pr.user.img_poa== true %> <!-- 이미지가 있을 경우 즉 프사를 올렸을경우 -->
-                                <img class="lv-img-sm" src="<%=Userpic.find_by(user_id: pr.user.id ,main: true).profile_img%>" alt="">
-                            <% else%>
-                                <img class="lv-img-sm" src="https://s3.ap-northeast-2.amazonaws.com/prideoflion/use/profile_default.png" alt="">
-                            <% end%>
-                        </a>
-                        
-                        <div class="pull-right p-0">
-                            <ul class="actions">
-                                <li class="dropdown action-show">
-                                    <a href="" data-toggle="dropdown" aria-expanded="false">
-                                        <i class="zmdi zmdi-more-vert"></i>
-                                    </a>
-                                    
-                                    <ul class="dropdown-menu dropdown-menu-right">
-                                        <li>
-                                            <a href="">수정</a>
-                                        </li>
-                                        <li>
-                                            <% if current_user.id == pr.user.id %>
-                                           <a href="/destroy_rp/<%=pr.id%>">삭제</a>
-                                            <%end%>
-                                        </li>
-                                    </ul>
+            <% PostReply.where(post_id: p.id).each do |pr| %>
+            <div class="media">
+                <!--<a href="" class="pull-left">-->
+                <!--    <img src="/mtl/img/profile-pics/5.jpg" alt="" class="lv-img-sm">-->
+                <!--</a>-->
+                <a href="" class="pull-left">
+                    <% if pr.user.img_poa== true %>
+                    <!-- 이미지가 있을 경우 즉 프사를 올렸을경우 -->
+                    <img class="lv-img-sm" src="<%=Userpic.find_by(user_id: pr.user.id ,main: true).profile_img%>" alt="">
+                <% else%>
+                    <img class="lv-img-sm" src="https://s3.ap-northeast-2.amazonaws.com/timple/use/profile_default.png" alt="">
+                    <% end%>
+                </a>
 
+                <div class="pull-right p-0">
+                    <ul class="actions">
+                        <li class="dropdown action-show">
+                            <a href="" data-toggle="dropdown" aria-expanded="false">
+                                <i class="zmdi zmdi-more-vert"></i>
+                            </a>
+
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li>
+                                    <a href="">수정</a>
+                                </li>
+                                <li>
+                                    <% if current_user.id == pr.user.id %>
+                                    <a href="/destroy_rp/<%=pr.id%>">삭제</a>
+                                    <%end%>
                                 </li>
                             </ul>
-                        </div>
-                        
-                        <div class="media-body">
-                            <a href="" class="a-title"><%= User.find(pr.user_id).username %></a> <small class="c-gray m-l-10"><%=time_ago_in_words(pr.created_at) %></small>
-                            <p class="m-t-5 m-b-0"><%= pr.content %></p>
-                        </div>
-                    </div>
+
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="media-body">
+                    <a href="" class="a-title"><%= User.find(pr.user_id).username %></a>
+                    <small class="c-gray m-l-10"><%=time_ago_in_words(pr.created_at) %></small>
+                    <p class="m-t-5 m-b-0"><%= pr.content %></p>
+                </div>
+            </div>
             <% end %>
         </div>
-        
+
         <!-- Comment form -->
         <div class="wcl-form">
-                <form action="/home/reply_write" method="POST">
+            <form action="/home/reply_write" method="POST">
                 <div class="wcc-inner">
-                   <input type="hidden" value="<%=p.id%>" name= id_of_post>
+                    <input type="hidden" value="<%=p.id%>" name=id_of_post>
                     <textarea name="content" id="content_<%=p.id%>" class="wcci-text auto-size" placeholder="Write Something..." data-autosize-on="true" style="overflow: hidden; word-wrap: break-word; height: 40px;"></textarea>
                 </div>
-                <div class="m-t-15"><button value="<%=p.id%>" type="submit" class="btn btn-sm btn-primary">Post</button></div>
-                </form>
-            </div>
+                <div class="m-t-15">
+                    <button value="<%=p.id%>" type="submit" class="btn btn-sm btn-primary">Post</button>
+                </div>
+            </form>
         </div>
     </div>
+</div>
 <%end%>
 <%else%>
-    <div class="card">
-        <div class="card-header">
-            <div class="media">
-                <div class="pull-left">
-                    <img class="lv-img" src="/mtl/img/profile-pics/3.jpg" alt="">
-                </div>
-                
-                <div class="media-body m-t-5">
-                    <h2>팀플 매니저 <small><%=time_ago_in_words(@team.created_at) %></small></h2>
-                </div>
+<div class="card">
+    <div class="card-header">
+        <div class="media">
+            <div class="pull-left">
+                <img class="lv-img" src="/mtl/img/profile-pics/3.jpg" alt="">
             </div>
-        </div>
-        
-        <div class="card-body card-padding p-t-0">
-            <p>팀플 매니저를 이용해주셔서 감사합니다. <br> <%=@team.name%> 팀의 첫 글을 작성해보세요</p>
-            
-            <ul class="wall-attrs clearfix list-inline list-unstyled">
-                <li class="wa-stats">
-                    <span><i class="zmdi zmdi-comments"></i> 0</span>
-                    <span><i class="zmdi zmdi-favorite"></i> 0</span>
-                </li>
-                
-                <li class="wa-users">
-                    <a href=""><img src="/mtl/img/profile-pics/3.jpg" alt=""></a>
-                </li>
-            </ul>    
-        </div>
-        
-        <div class="wall-comment-list">
-            
-            <!-- Comment form -->
-            <div class="wcl-form">
-                <div class="wc-comment">
-                    <div class="wcc-inner wcc-toggle">
-                        Write Something...
-                    </div>
-                </div>
+
+            <div class="media-body m-t-5">
+                <h2>팀플 매니저
+                    <small><%=time_ago_in_words(@team.created_at) %></small>
+                </h2>
             </div>
-            
         </div>
     </div>
+
+    <div class="card-body card-padding p-t-0">
+        <p>팀플 매니저를 이용해주셔서 감사합니다.
+            <br>
+            <%=@team.name%>
+            팀의 첫 글을 작성해보세요</p>
+
+        <ul class="wall-attrs clearfix list-inline list-unstyled">
+            <li class="wa-stats">
+                <span>
+                    <i class="zmdi zmdi-comments"></i>
+                    0</span>
+                <span>
+                    <i class="zmdi zmdi-favorite"></i>
+                    0</span>
+            </li>
+
+            <li class="wa-users">
+                <a href=""><img src="/mtl/img/profile-pics/3.jpg" alt=""></a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="wall-comment-list">
+
+        <!-- Comment form -->
+        <div class="wcl-form">
+            <div class="wc-comment">
+                <div class="wcc-inner wcc-toggle">
+                    Write Something...
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
 <%end%>

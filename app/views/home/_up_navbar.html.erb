@@ -1,4 +1,3 @@
-
 <header id="header" class="clearfix" style="background-color:#46b6ac;">
     <ul class="header-inner">
         <!--<li id="menu-trigger" data-trigger="#sidebar">-->
@@ -22,48 +21,51 @@
                 <!--        <label for="tw-switch" class="ts-helper"></label>-->
                 <!--    </div>-->
                 <!--</li>-->
-                <li class="hidden-xs" data-toggle="modal" data-target="#myModal" data-backdrop="false" >
-                        <div class="pull-left" >
-                            <div class="media" id="mypage" >
-                                <div class="pull-left">
-                                <% if current_user.img_poa== true %> <!-- 이미지가 있을 경우 즉 프사를 올렸을경우 -->
-                                    <img class="lv-img-sm" src="<%=Userpic.find_by(user_id: current_user.id ,main: true).profile_img%>" alt="">
-                                <% else%>
-                                    <img class="lv-img-sm" src="https://s3.ap-northeast-2.amazonaws.com/prideoflion/use/profile_default.png" alt="">
+                <li class="hidden-xs" data-toggle="modal" data-target="#myModal" data-backdrop="false">
+                    <div class="pull-left">
+                        <div class="media" id="mypage">
+                            <div class="pull-left">
+                                <% if current_user.img_poa== true %>
+                                <!-- 이미지가 있을 경우 즉 프사를 올렸을경우 -->
+                                <img class="lv-img-sm" src="<%=Userpic.find_by(user_id: current_user.id ,main: true).profile_img%>" alt="">
+                            <% else%>
+                                <img class="lv-img-sm" src="https://s3.ap-northeast-2.amazonaws.com/timple/use/profile_default.png" alt="">
                                 <% end%>
-                                </div>
-                                <div class="media-body">
-                                    <div class="lv-title"title="<%=current_user.username%>"><%=current_user.username%></div>
-                                    <small class="lv-small"><%=current_user.s_num%></small>
-                                </div>
+                            </div>
+                            <div class="media-body">
+                                <div class="lv-title" title="<%=current_user.username%>"><%=current_user.username%></div>
+                                <small class="lv-small"><%=current_user.s_num%></small>
                             </div>
                         </div>
+                    </div>
                 </li>
                 <!-- Modal -->
                 <div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">프로필 사진 변경</h4>
-                      </div>
-                      <form action="/home/user_pic_upload" method="post" enctype="multipart/form-data">
-                          <div class="modal-body">
-                              <label for="image">Image:</label>
-                              <input type="file" name="image" accept="image/*" id="image"><br>
-                                <div id="image_preview">
-                                    <img style="border:0;" src="https://placehold.it/200x200" alt="이미지를 선택해주세요"width="200px" height="200px" />
-                                    <br />
-                                    <a href="#">Remove</a>
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <h4 class="modal-title" id="myModalLabel">프로필 사진 변경</h4>
+                            </div>
+                            <form action="/home/user_pic_upload" method="post" enctype="multipart/form-data">
+                                <div class="modal-body">
+                                    <label for="image">Image:</label>
+                                    <input type="file" name="image" accept="image/*" id="image"><br>
+                                    <div id="image_preview">
+                                        <img style="border:0;" src="https://placehold.it/200x200" alt="이미지를 선택해주세요" width="200px" height="200px"/>
+                                        <br/>
+                                        <a href="#">Remove</a>
+                                    </div>
                                 </div>
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-                            <button type="submit" class="btn btn-primary">변경하기</button>
-                          </div>
-                      </form>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+                                    <button type="submit" class="btn btn-primary">변경하기</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
-                  </div>
                 </div>
 
             </ul>

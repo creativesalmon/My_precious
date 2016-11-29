@@ -4,6 +4,8 @@ gem 'simple_form'
 gem 'mini_magick'
 gem 'will_paginate', '~> 3.1.0'
 gem 'will_paginate-bootstrap'
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
+
 
 gem "font-awesome-rails"
 gem "fog-aws"
@@ -54,4 +56,3 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 end
-
